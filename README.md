@@ -47,7 +47,7 @@ This is a non-Euclidean game for the ESGI fourth year annual project
 
 1. Clone this repository.
 ```sh
-git clone https://github.com/your_username_/Project-Name.git
+git clone https://github.com/Ronan-senpi/non-euclidean-game
 ```
 2. Open with Unity or Unity Hub
 
