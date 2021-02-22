@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class PlayerController : MonoBehaviour
+public class PlayerController : PortalTraveller
 {
     [Header("References")]
     [Tooltip("Reference to the main camera used for the player")]
@@ -32,7 +32,7 @@ public class PlayerController : MonoBehaviour
     [Tooltip("Acceleration speed when in the air")]
     [SerializeField] private float accelerationSpeedInAir = 25f;
     [Tooltip("Multiplicator for the sprint speed (based on grounded speed)")]
-    [SerializeField] private float sprintSpeedModifier = 2f;  
+    [SerializeField] private float sprintSpeedModifier = 2f;
     [Tooltip("Give the player full control in the air")]
     [SerializeField] private bool enableAirControl = false;
 
@@ -75,6 +75,10 @@ public class PlayerController : MonoBehaviour
     const float k_JumpGroundingPreventionTime = 0.2f;
     const float k_GroundCheckDistanceInAir = 0.07f;
 
+    private float yaw;
+    private float pitch;
+    private float smoothYaw;
+    private float smoothPitch;
 
     private void Start()
     {
@@ -82,7 +86,10 @@ public class PlayerController : MonoBehaviour
         // force the crouch state to false when starting
         SetCrouchingState(false, true);
         UpdateCharacterHeight(true);
-
+        yaw = transform.eulerAngles.y;
+        pitch = playerCamera.transform.localEulerAngles.x;
+        smoothYaw = yaw;
+        smoothPitch = pitch;
     }
     // Update is called once per frame
     void Update()
@@ -136,22 +143,23 @@ public class PlayerController : MonoBehaviour
     void HandleCharacterMovement()
     {
         // horizontal character rotation
-        {
-            // rotate the transform with the input speed around its local Y axis
-            transform.Rotate(new Vector3(0f, (m_InputHandler.GetLookInputsHorizontal() * rotationSpeed * RotationMultiplier), 0f), Space.Self);
-        }
+
+        // rotate the transform with the input speed around its local Y axis
+        float mX = m_InputHandler.GetLookInputsHorizontal();
+        transform.Rotate(new Vector3(0f, (mX * rotationSpeed * RotationMultiplier), 0f), Space.Self);
+
 
         // vertical camera rotation
-        {
-            // add vertical inputs to the camera's vertical angle
-            m_CameraVerticalAngle += m_InputHandler.GetLookInputsVertical() * rotationSpeed * RotationMultiplier;
 
-            // limit the camera's vertical angle to min/max
-            m_CameraVerticalAngle = Mathf.Clamp(m_CameraVerticalAngle, -89f, 89f);
+        // add vertical inputs to the camera's vertical angle
+        float mY = m_InputHandler.GetLookInputsVertical();
+        m_CameraVerticalAngle += mY * rotationSpeed * RotationMultiplier;
 
-            // apply the vertical angle as a local rotation to the camera transform along its right axis (makes it pivot up and down)
-            playerCamera.transform.localEulerAngles = new Vector3(m_CameraVerticalAngle, 0, 0);
-        }
+        // limit the camera's vertical angle to min/max
+        m_CameraVerticalAngle = Mathf.Clamp(m_CameraVerticalAngle, -89f, 89f);
+
+        // apply the vertical angle as a local rotation to the camera transform along its right axis (makes it pivot up and down)
+        playerCamera.transform.localEulerAngles = new Vector3(m_CameraVerticalAngle, 0, 0);
 
         // character movement handling
         bool isSprinting = m_InputHandler.GetSprintInputHeld();
@@ -190,7 +198,7 @@ public class PlayerController : MonoBehaviour
 
                         // then, add the jumpSpeed value upwards
                         characterVelocity += Vector3.up * jumpForce;
-                        
+
                         // remember last time we jumped because we need to prevent snapping to ground for a short time
                         m_LastTimeJumped = Time.time;
                         hasJumpedThisFrame = true;
@@ -205,7 +213,7 @@ public class PlayerController : MonoBehaviour
             else
             {
                 // add air acceleration
-                if(enableAirControl)
+                if (enableAirControl)
                     characterVelocity += worldspaceMoveInput * accelerationSpeedInAir * speedModifier;
                 else
                     characterVelocity += worldspaceMoveInput * accelerationSpeedInAir * Time.deltaTime;
@@ -235,6 +243,11 @@ public class PlayerController : MonoBehaviour
 
             characterVelocity = Vector3.ProjectOnPlane(characterVelocity, hit.normal);
         }
+
+        //yaw += mX * m_InputHandler.lookSensitivity;
+        //pitch -= mY * m_InputHandler.lookSensitivity;
+        //transform.eulerAngles = Vector3.up * smoothYaw;
+        //playerCamera.transform.localEulerAngles = Vector3.right * smoothPitch;
     }
 
     // Returns true if the slope angle represented by the given normal is under the slope angle limit of the character controller
@@ -313,5 +326,17 @@ public class PlayerController : MonoBehaviour
             controller.center = Vector3.up * controller.height * 0.5f;
             playerCamera.transform.localPosition = Vector3.Lerp(playerCamera.transform.localPosition, Vector3.up * m_TargetCharacterHeight * cameraHeightRatio, crouchingSharpness * Time.deltaTime);
         }
+    }
+
+    public override void Teleport(Transform fromPortal, Transform toPortal, Vector3 pos, Quaternion rot)
+    {
+        transform.position = pos;
+        Vector3 eulerRot = rot.eulerAngles;
+        float delta = Mathf.DeltaAngle(smoothYaw, eulerRot.y);
+        yaw += delta;
+        smoothYaw += delta;
+        transform.eulerAngles = Vector3.up * smoothYaw;
+        characterVelocity = toPortal.TransformVector(fromPortal.InverseTransformVector(characterVelocity));
+        Physics.SyncTransforms();
     }
 }
