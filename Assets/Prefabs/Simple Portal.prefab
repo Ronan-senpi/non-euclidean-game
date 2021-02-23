@@ -165,9 +165,9 @@ MeshCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  serializedVersion: 3
+  serializedVersion: 4
   m_Convex: 0
-  m_CookingOptions: 14
+  m_CookingOptions: 30
   m_Mesh: {fileID: -6360558719573625917, guid: f41802e248f2e42178e949a42908c5b4, type: 3}
 --- !u!1001 &2480736533871096200
 PrefabInstance:
@@ -176,11 +176,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 3743597651704331073}
     m_Modifications:
-    - target: {fileID: -927199367670048503, guid: f41802e248f2e42178e949a42908c5b4,
-        type: 3}
-      propertyPath: m_Name
-      value: Simple Portal
-      objectReference: {fileID: 0}
     - target: {fileID: -4216859302048453862, guid: f41802e248f2e42178e949a42908c5b4,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -256,11 +251,21 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 556cc49e838cc40529b22b3472a66ac3, type: 2}
+    - target: {fileID: -927199367670048503, guid: f41802e248f2e42178e949a42908c5b4,
+        type: 3}
+      propertyPath: m_Name
+      value: Simple Portal
+      objectReference: {fileID: 0}
     - target: {fileID: 998356590043849621, guid: f41802e248f2e42178e949a42908c5b4,
         type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 862d756f3c67d421c9ce251cd604fbf3, type: 2}
+    - target: {fileID: 998356590043849621, guid: f41802e248f2e42178e949a42908c5b4,
+        type: 3}
+      propertyPath: m_CastShadows
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f41802e248f2e42178e949a42908c5b4, type: 3}
 --- !u!1 &5858256972162738305 stripped
