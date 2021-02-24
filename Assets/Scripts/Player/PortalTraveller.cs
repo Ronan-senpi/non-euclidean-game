@@ -18,8 +18,7 @@ public class PortalTraveller : MonoBehaviour {
     // Called when first touches portal
     public virtual void EnterPortalThreshold () {
         if (graphicsClone == null) {
-            graphicsClone = Instantiate (graphicsObject);
-            graphicsClone.transform.parent = graphicsObject.transform.parent;
+            graphicsClone = Instantiate(graphicsObject, graphicsObject.transform.parent);
             graphicsClone.transform.localScale = graphicsObject.transform.localScale;
             originalMaterials = GetMaterials (graphicsObject);
             cloneMaterials = GetMaterials (graphicsClone);
