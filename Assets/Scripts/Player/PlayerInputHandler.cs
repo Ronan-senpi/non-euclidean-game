@@ -2,6 +2,18 @@
 
 public class PlayerInputHandler : MonoBehaviour
 {
+    private static PlayerInputHandler instance;
+    public static PlayerInputHandler Instance
+    {
+        get
+        {
+            if (instance == null)
+                instance = FindObjectOfType<PlayerInputHandler>();
+
+            return instance;
+        }
+    }
+
     [Tooltip("Sensitivity multiplier for moving the camera around")]
     public float lookSensitivity = 1f;
     [Tooltip("Additional sensitivity multiplier for WebGL")]
@@ -120,5 +132,10 @@ public class PlayerInputHandler : MonoBehaviour
         }
 
         return 0f;
+    }
+
+    public bool GetPauseInputDown()
+    {
+        return Input.GetButtonDown(GameConstants.k_ButtonNamePause);
     }
 }

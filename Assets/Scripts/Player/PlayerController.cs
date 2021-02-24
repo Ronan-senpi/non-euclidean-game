@@ -55,7 +55,7 @@ public class PlayerController : PortalTraveller
     [SerializeField] private float crouchingSharpness = 10f;
 
     private Vector3 characterVelocity;
-    private bool isGrounded;
+    public bool isGrounded;
     private bool hasJumpedThisFrame;
     private bool isCrouching;
     public float RotationMultiplier
@@ -113,13 +113,13 @@ public class PlayerController : PortalTraveller
 
         // reset values before the ground check
         isGrounded = false;
-        m_GroundNormal = Vector3.up;
+        m_GroundNormal = transform.up;
 
         // only try to detect ground if it's been a short amount of time since last jump; otherwise we may snap to the ground instantly after we try jumping
         if (Time.time >= m_LastTimeJumped + k_JumpGroundingPreventionTime)
         {
             // if we're grounded, collect info about the ground normal with a downward capsule cast representing our character capsule
-            if (Physics.CapsuleCast(GetCapsuleBottomHemisphere(), GetCapsuleTopHemisphere(controller.height), controller.radius, Vector3.down, out RaycastHit hit, chosenGroundCheckDistance, groundCheckLayers, QueryTriggerInteraction.Ignore))
+            if (Physics.CapsuleCast(GetCapsuleBottomHemisphere(), GetCapsuleTopHemisphere(controller.height), controller.radius, -transform.up, out RaycastHit hit, chosenGroundCheckDistance, groundCheckLayers, QueryTriggerInteraction.Ignore))
             {
                 // storing the upward direction for the surface found
                 m_GroundNormal = hit.normal;
@@ -133,7 +133,7 @@ public class PlayerController : PortalTraveller
                     // handle snapping to the ground
                     if (hit.distance > controller.skinWidth)
                     {
-                        controller.Move(Vector3.down * hit.distance);
+                        controller.Move(-transform.up * hit.distance);
                     }
                 }
             }
@@ -225,7 +225,7 @@ public class PlayerController : PortalTraveller
                 characterVelocity = horizontalVelocity + (Vector3.up * verticalVelocity);
 
                 // apply the gravity to the velocity
-                characterVelocity += Vector3.down * gravityDownForce * Time.deltaTime;
+                characterVelocity += -transform.up * gravityDownForce * Time.deltaTime;
             }
         }
 
