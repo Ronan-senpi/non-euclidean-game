@@ -16,7 +16,10 @@ public class PortalTraveller : MonoBehaviour {
     }
 
     // Called when first touches portal
-    public virtual void EnterPortalThreshold () {
+    public virtual void EnterPortalThreshold ()
+    {
+        if (Equals(graphicsObject, null)) return;
+        
         if (graphicsClone == null) {
             graphicsClone = Instantiate(graphicsObject, graphicsObject.transform.parent);
             graphicsClone.transform.localScale = graphicsObject.transform.localScale;
@@ -28,7 +31,10 @@ public class PortalTraveller : MonoBehaviour {
     }
 
     // Called once no longer touching portal (excluding when teleporting)
-    public virtual void ExitPortalThreshold () {
+    public virtual void ExitPortalThreshold ()
+    {
+        if (Equals(graphicsObject, null)) return;
+        
         graphicsClone.SetActive (false);
         // Disable slicing
         for (int i = 0; i < originalMaterials.Length; i++) {
