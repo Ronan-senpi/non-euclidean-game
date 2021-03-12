@@ -69,7 +69,10 @@ public class Portal : MonoBehaviour
 				Matrix4x4 m = _linkedPortal.transform.localToWorldMatrix * transform.worldToLocalMatrix * travellerT.localToWorldMatrix;
 
 				traveller.Teleport(transform, _linkedPortal.transform, m.GetColumn(3), m.rotation);
-				traveller.GraphicsClone.transform.SetPositionAndRotation(positionOld, rotOld);
+				if (traveller.HasGraphicsObject)
+				{
+					traveller.GraphicsClone.transform.SetPositionAndRotation(positionOld, rotOld);
+				}
 				// Can't rely on OnTriggerEnter/Exit to be called next frame since it depends on when FixedUpdate runs
 				_linkedPortal.OnTravellerEnterPortal(traveller);
 				_trackedTravellers.RemoveAt(i);
@@ -77,9 +80,12 @@ public class Portal : MonoBehaviour
 			}
 			else
 			{
-				Matrix4x4 m = _linkedPortal.transform.localToWorldMatrix * transform.worldToLocalMatrix * traveller.GraphicsObject.transform.localToWorldMatrix;
+				if (traveller.HasGraphicsObject)
+				{
+					Matrix4x4 m = _linkedPortal.transform.localToWorldMatrix * transform.worldToLocalMatrix * traveller.GraphicsObject.transform.localToWorldMatrix;
+					traveller.GraphicsClone.transform.SetPositionAndRotation(m.GetColumn(3), m.rotation);
+				}
 
-				traveller.GraphicsClone.transform.SetPositionAndRotation(m.GetColumn(3), m.rotation);
 				//UpdateSliceParams (traveller);
 				traveller.PreviousOffsetFromPortal = offsetFromPortal;
 			}
@@ -91,7 +97,10 @@ public class Portal : MonoBehaviour
 	{
 		foreach (var traveller in _trackedTravellers)
 		{
-			UpdateSliceParams(traveller);
+			if (traveller.HasGraphicsObject)
+			{
+				UpdateSliceParams(traveller);
+			}
 		}
 	}
 
@@ -168,6 +177,8 @@ public class Portal : MonoBehaviour
 
 		foreach (var traveller in _trackedTravellers)
 		{
+			if (!traveller.HasGraphicsObject) continue;
+			
 			if (SameSideOfPortal(traveller.transform.position, PortalCamPos))
 			{
 				// Addresses issue 1
@@ -195,6 +206,8 @@ public class Portal : MonoBehaviour
 		var offsetFromPortalToCam = PortalCamPos - transform.position;
 		foreach (var linkedTraveller in _linkedPortal._trackedTravellers)
 		{
+			if (!linkedTraveller.HasGraphicsObject) continue;
+			
 			var travellerPos = linkedTraveller.GraphicsObject.transform.position;
 			var clonePos = linkedTraveller.GraphicsClone.transform.position;
 			// Handle clone of linked portal coming through this portal:
@@ -228,7 +241,10 @@ public class Portal : MonoBehaviour
 	{
 		foreach (var traveller in _trackedTravellers)
 		{
-			UpdateSliceParams(traveller);
+			if (traveller.HasGraphicsObject)
+			{
+				UpdateSliceParams(traveller);
+			}
 		}
 
 		ProtectScreenFromClipping(_playerCam.transform.position);

@@ -8,11 +8,24 @@ public class PortalTraveller : MonoBehaviour
 	
 	public GameObject GraphicsObject => _graphicsObject;
 	public GameObject GraphicsClone { get; set; }
-	
+
+	private bool _hasGraphicsObject;
+	public bool HasGraphicsObject
+	{
+		get
+		{
+			Initialize();
+			
+			return _hasGraphicsObject;
+		}
+	}
+
 	public Vector3 PreviousOffsetFromPortal { get; set; }
 
-	public Material[] OriginalMaterials { get; set; }
-	public Material[] CloneMaterials { get; set; }
+	public Material[] OriginalMaterials { get; private set; }
+	public Material[] CloneMaterials { get; private set; }
+
+	private bool _initialized;
 	
 	// Shader uniforms
 	private static readonly int SliceNormal = Shader.PropertyToID("sliceNormal");
@@ -24,19 +37,26 @@ public class PortalTraveller : MonoBehaviour
 		transform.rotation = rot;
 	}
 
-	// Called when first touches portal
-	public virtual void EnterPortalThreshold()
+	private void Initialize()
 	{
-		if (Equals(_graphicsObject, null)) return;
+		if (_initialized) return;
+		_initialized = true;
 
-		if (GraphicsClone == null)
+		_hasGraphicsObject = GraphicsObject;
+			
+		if (_hasGraphicsObject)
 		{
 			GraphicsClone = Instantiate(_graphicsObject, _graphicsObject.transform.parent);
 			GraphicsClone.transform.localScale = _graphicsObject.transform.localScale;
 			OriginalMaterials = GetMaterials(_graphicsObject);
 			CloneMaterials = GetMaterials(GraphicsClone);
 		}
-		else
+	}
+
+	// Called when first touches portal
+	public virtual void EnterPortalThreshold()
+	{
+		if (HasGraphicsObject)
 		{
 			GraphicsClone.SetActive(true);
 		}
@@ -45,13 +65,15 @@ public class PortalTraveller : MonoBehaviour
 	// Called once no longer touching portal (excluding when teleporting)
 	public virtual void ExitPortalThreshold()
 	{
-		if (Equals(_graphicsObject, null)) return;
-
-		GraphicsClone.SetActive(false);
-		// Disable slicing
-		for (int i = 0; i < OriginalMaterials.Length; i++)
+		if (HasGraphicsObject)
 		{
-			OriginalMaterials[i].SetVector(SliceNormal, Vector3.zero);
+			GraphicsClone.SetActive(false);
+			
+			// Disable slicing
+			for (int i = 0; i < OriginalMaterials.Length; i++)
+			{
+				OriginalMaterials[i].SetVector(SliceNormal, Vector3.zero);
+			}
 		}
 	}
 
