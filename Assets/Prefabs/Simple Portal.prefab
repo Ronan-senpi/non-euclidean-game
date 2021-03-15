@@ -121,11 +121,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 57b9885b89b6d4fbe92f77801ecc3671, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  linkedPortal: {fileID: 0}
-  screen: {fileID: 3438419960765059613}
-  recursionLimit: 2
-  nearClipOffset: 0.05
-  nearClipLimit: 0.2
+  _linkedPortal: {fileID: 0}
+  _screen: {fileID: 3438419960765059613}
+  _recursionLimit: 5
+  _nearClipOffset: 0.05
+  _nearClipLimit: 0.2
 --- !u!65 &3743597651704331079
 BoxCollider:
   m_ObjectHideFlags: 0

@@ -1,60 +1,109 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
-public class PortalTraveller : MonoBehaviour {
+public class PortalTraveller : MonoBehaviour
+{
+	[SerializeField]
+	private GameObject _graphicsObject;
+	
+	public GameObject GraphicsObject => _graphicsObject;
+	public GameObject GraphicsClone { get; set; }
 
-    public GameObject graphicsObject;
-    public GameObject graphicsClone { get; set; }
-    public Vector3 previousOffsetFromPortal { get; set; }
+	private bool _hasGraphicsObject;
+	public bool HasGraphicsObject
+	{
+		get
+		{
+			Initialize();
+			
+			return _hasGraphicsObject;
+		}
+	}
 
-    public Material[] originalMaterials { get; set; }
-    public Material[] cloneMaterials { get; set; }
+	public Vector3 PreviousOffsetFromPortal { get; set; }
 
-    public virtual void Teleport (Transform fromPortal, Transform toPortal, Vector3 pos, Quaternion rot) {
-        transform.position = pos;
-        transform.rotation = rot;
-    }
+	public Material[] OriginalMaterials { get; private set; }
+	public Material[] CloneMaterials { get; private set; }
 
-    // Called when first touches portal
-    public virtual void EnterPortalThreshold () {
-        if (graphicsClone == null) {
-            graphicsClone = Instantiate(graphicsObject, graphicsObject.transform.parent);
-            graphicsClone.transform.localScale = graphicsObject.transform.localScale;
-            originalMaterials = GetMaterials (graphicsObject);
-            cloneMaterials = GetMaterials (graphicsClone);
-        } else {
-            graphicsClone.SetActive (true);
-        }
-    }
+	private bool _initialized;
+	
+	// Shader uniforms
+	private static readonly int SliceNormal = Shader.PropertyToID("sliceNormal");
+	private static readonly int SliceOffsetDst = Shader.PropertyToID("sliceOffsetDst");
 
-    // Called once no longer touching portal (excluding when teleporting)
-    public virtual void ExitPortalThreshold () {
-        graphicsClone.SetActive (false);
-        // Disable slicing
-        for (int i = 0; i < originalMaterials.Length; i++) {
-            originalMaterials[i].SetVector ("sliceNormal", Vector3.zero);
-        }
-    }
+	public virtual void Teleport(Transform fromPortal, Transform toPortal, Vector3 pos, Quaternion rot)
+	{
+		transform.position = pos;
+		transform.rotation = rot;
+	}
 
-    public void SetSliceOffsetDst (float dst, bool clone) {
-        for (int i = 0; i < originalMaterials.Length; i++) {
-            if (clone) {
-                cloneMaterials[i].SetFloat ("sliceOffsetDst", dst);
-            } else {
-                originalMaterials[i].SetFloat ("sliceOffsetDst", dst);
-            }
+	private void Initialize()
+	{
+		if (_initialized) return;
+		_initialized = true;
 
-        }
-    }
+		_hasGraphicsObject = GraphicsObject;
+			
+		if (_hasGraphicsObject)
+		{
+			GraphicsClone = Instantiate(_graphicsObject, _graphicsObject.transform.parent);
+			GraphicsClone.transform.localScale = _graphicsObject.transform.localScale;
+			OriginalMaterials = GetMaterials(_graphicsObject);
+			CloneMaterials = GetMaterials(GraphicsClone);
+		}
+	}
 
-    Material[] GetMaterials (GameObject g) {
-        var renderers = g.GetComponentsInChildren<MeshRenderer> ();
-        var matList = new List<Material> ();
-        foreach (var renderer in renderers) {
-            foreach (var mat in renderer.materials) {
-                matList.Add (mat);
-            }
-        }
-        return matList.ToArray ();
-    }
+	// Called when first touches portal
+	public virtual void EnterPortalThreshold()
+	{
+		if (HasGraphicsObject)
+		{
+			GraphicsClone.SetActive(true);
+		}
+	}
+
+	// Called once no longer touching portal (excluding when teleporting)
+	public virtual void ExitPortalThreshold()
+	{
+		if (HasGraphicsObject)
+		{
+			GraphicsClone.SetActive(false);
+			
+			// Disable slicing
+			for (int i = 0; i < OriginalMaterials.Length; i++)
+			{
+				OriginalMaterials[i].SetVector(SliceNormal, Vector3.zero);
+			}
+		}
+	}
+
+	public void SetSliceOffsetDst(float dst, bool clone)
+	{
+		for (int i = 0; i < OriginalMaterials.Length; i++)
+		{
+			if (clone)
+			{
+				CloneMaterials[i].SetFloat(SliceOffsetDst, dst);
+			}
+			else
+			{
+				OriginalMaterials[i].SetFloat(SliceOffsetDst, dst);
+			}
+		}
+	}
+
+	private static Material[] GetMaterials(GameObject g)
+	{
+		var renderers = g.GetComponentsInChildren<MeshRenderer>();
+		var matList = new List<Material>();
+		foreach (var renderer in renderers)
+		{
+			foreach (var mat in renderer.materials)
+			{
+				matList.Add(mat);
+			}
+		}
+
+		return matList.ToArray();
+	}
 }
