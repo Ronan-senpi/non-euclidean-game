@@ -966,37 +966,3 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 3633347148226363598}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &4964164952183169154
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4964164952183169153}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 03c464c6869dfe342813fa128897cde5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _graphicsObject: {fileID: 2231350286991106044}
-  playerCamera: {fileID: 4964164953662325330}
-  m_InputHandler: {fileID: 1628450108}
-  controller: {fileID: 4964164952183169157}
-  gravityDownForce: 20
-  groundCheckLayers:
-    serializedVersion: 2
-    m_Bits: 1
-  groundCheckDistance: 1
-  maxSpeedOnGround: 10
-  movementSharpnessOnGround: 15
-  maxSpeedCrouchedRatio: 0.5
-  maxSpeedInAir: 10
-  accelerationSpeedInAir: 25
-  sprintSpeedModifier: 2
-  enableAirControl: 0
-  rotationSpeed: 200
-  jumpForce: 9
-  cameraHeightRatio: 0.9
-  capsuleHeightStanding: 2
-  capsuleHeightCrouching: 0.9
-  crouchingSharpness: 10
