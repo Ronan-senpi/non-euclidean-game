@@ -77,7 +77,6 @@ public class PlayerInteraction : MonoBehaviour
             else if (objectInHand != null)
             {
                 objectInHand.onPlayerInteract?.Invoke();
-                objectInHand = null;
             }
         }
     }
