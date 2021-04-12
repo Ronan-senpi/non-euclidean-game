@@ -15,17 +15,17 @@ public class PauseManager : MonoBehaviour
     }
     public void Update()
     {
-        if (PlayerInputHandler.Instance.GetPauseInputDown())
-        {
-            if (pauseScreen.activeSelf)
-            {
-                ResumeGame();
-            }
-            else
-            {
-                PauseGame();
-            }
-        }
+        // if (PlayerInputHandler.Instance.GetPauseInputDown())
+        // {
+        //     if (pauseScreen.activeSelf)
+        //     {
+        //         ResumeGame();
+        //     }
+        //     else
+        //     {
+        //         PauseGame();
+        //     }
+        // }
     }
 
     public void PauseGame()
