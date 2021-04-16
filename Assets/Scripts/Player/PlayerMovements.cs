@@ -23,7 +23,7 @@ public class PlayerMovements : PortalTraveller
 	private float _verticalRotation;
 	private bool _grounded;
 	private int _playerMask;
-	private Vector3 _localGravityDir = Vector3.down;
+	private Vector3 _gravity = Physics.gravity;
 
 	private const float JUMP_CD = 0.1f;
 	private float _currentJumpCd;
@@ -34,9 +34,19 @@ public class PlayerMovements : PortalTraveller
 		_playerMask = 1 << LayerMask.NameToLayer("Player");
 	}
 
+	private void RotateGravity(Quaternion rot)
+	{
+		_gravity = rot * _gravity;
+	}
+
+	private void SetGravity(Vector3 gravity)
+	{
+		_gravity = gravity;
+	}
+
 	private void UpdateGrounded()
 	{
-		Vector3 nextVel = _rigidbody.velocity + Physics.gravity * Time.deltaTime;
+		Vector3 nextVel = _rigidbody.velocity + _gravity * Time.deltaTime;
 		Vector3 nextPos = _rigidbody.position + nextVel * Time.deltaTime;
 		
 		_grounded = Physics.CheckSphere(
@@ -49,8 +59,10 @@ public class PlayerMovements : PortalTraveller
 	{
 		base.Teleport(fromPortal, toPortal, pos, rot);
 		
-		Quaternion fromToRot = Quaternion.FromToRotation(fromPortal.forward, toPortal.forward);
-		_rigidbody.velocity = fromToRot * _rigidbody.velocity;
+		Quaternion velocityRot = Quaternion.FromToRotation(fromPortal.forward, toPortal.forward);
+		_rigidbody.velocity = velocityRot * _rigidbody.velocity;
+		
+		SetGravity(-toPortal.transform.up * Physics.gravity.magnitude);
 	}
 
 	// http://wiki.unity3d.com/index.php?title=RigidbodyFPSWalker
@@ -59,6 +71,11 @@ public class PlayerMovements : PortalTraveller
 		// From the jump height and gravity we deduce the upwards speed 
 		// for the character to reach at the apex.
 		return Mathf.Sqrt(2 * jumpHeight * Physics.gravity.magnitude);
+	}
+
+	private void FixedUpdate()
+	{
+		_rigidbody.AddForce(_gravity, ForceMode.Acceleration);
 	}
 
 	private void Update()
@@ -78,15 +95,11 @@ public class PlayerMovements : PortalTraveller
 		_verticalRotation = Mathf.Clamp(_verticalRotation, -89f, 89f);
         
 		_camera.localRotation = Quaternion.Euler(_verticalRotation, 0, 0);
-
-		Vector3 gravityDir = Physics.gravity.normalized;
-		if (Vector3.Dot(_localGravityDir, gravityDir) < 1)
-		{
-			_rigidbody.rotation = Quaternion.FromToRotation(_localGravityDir, gravityDir) * _rigidbody.rotation;
-			_localGravityDir = gravityDir;
-		}
 		
 		_rigidbody.MoveRotation(_rigidbody.rotation * Quaternion.AngleAxis(lookRotation.x, Vector3.up));
+
+		Vector3 a = transform.position + transform.up * 4;
+		Debug.DrawLine(a, a + _gravity.normalized, Color.red);
 		
 		
 		// Player move
