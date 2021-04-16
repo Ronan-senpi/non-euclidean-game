@@ -52,7 +52,8 @@ public class PlayerMovements : PortalTraveller
 		_grounded = Physics.CheckSphere(
 			nextPos + transform.up * -0.7f,
 			0.3f,
-			~_playerMask);
+			~_playerMask,
+			QueryTriggerInteraction.Ignore);
 	}
 
 	public override void Teleport(Transform fromPortal, Transform toPortal, Vector3 pos, Quaternion rot)
