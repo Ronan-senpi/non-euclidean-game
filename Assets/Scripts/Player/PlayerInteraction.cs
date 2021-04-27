@@ -22,7 +22,7 @@ public class PlayerInteraction : MonoBehaviour
     private Transform cam;
     private Ray camRay;
     private RaycastHit hit;
-    private Interactable interactableObject;
+    public Interactable interactableObject;
     private Interactable objectInHand;
     public Interactable ObjectInHand
     {
@@ -41,9 +41,7 @@ public class PlayerInteraction : MonoBehaviour
         {
             if (hit.collider.gameObject.tag == "Interactable")
             {
-
                 interactableObject = hit.collider.gameObject.GetComponent<Interactable>();
-
             }
             else if (interactableObject != null)
             {
@@ -70,8 +68,10 @@ public class PlayerInteraction : MonoBehaviour
 
         if (Input.GetButtonDown("Interact"))
         {
+            Debug.Log("Input Interaction");
             if (interactableObject != null)
             {
+                Debug.Log("Start Interacting");
                 interactableObject.onPlayerInteract?.Invoke();
             }
             else if (objectInHand != null)

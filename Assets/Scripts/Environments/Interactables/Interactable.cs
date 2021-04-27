@@ -7,9 +7,9 @@ public class Interactable : MonoBehaviour
 {
     [HideInInspector] public UnityEvent onPlayerInteract = new UnityEvent();
 
-    private void Awake()
+    protected virtual void Awake()
     {
-        onPlayerInteract.AddListener(ActionOnUse);    
+        onPlayerInteract.AddListener(ActionOnUse);
     }
 
 
