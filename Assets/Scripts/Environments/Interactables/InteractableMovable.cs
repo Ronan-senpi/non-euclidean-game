@@ -4,14 +4,21 @@ using UnityEngine;
 
 public class InteractableMovable : Interactable
 {
-    [SerializeField] private Transform takenPosition;
-    [SerializeField] private float moveForce = 250;
+    [SerializeField] private Transform heldPosition;
+    [SerializeField] private float moveForce;
+    [SerializeField] private float dragForce;
+    [SerializeField] private float distanceMax;
+    private int objectFreeLayer;
+    private int objectHeldLayer;
+
     private bool taken = false;
     private Rigidbody rb;
 
     protected override void Awake()
     {
         base.Awake();
+        objectFreeLayer = LayerMask.NameToLayer("Default");
+        objectHeldLayer = LayerMask.NameToLayer("ObjectHeld");
         rb = GetComponent<Rigidbody>();
     }
 
@@ -19,23 +26,25 @@ public class InteractableMovable : Interactable
     {
         if (!taken)
         {
-            gameObject.layer = 10;
+            gameObject.layer = objectHeldLayer;
             PlayerInteraction.Instance.ObjectInHand = this;
-            transform.position = takenPosition.position;
-            transform.SetParent(takenPosition);
+            transform.position = heldPosition.position;
+            transform.SetParent(heldPosition);
             taken = true;
             rb.useGravity = false;
-            rb.drag = 10;
+            rb.drag = dragForce;
+            rb.freezeRotation = true;
             //rb.isKinematic = true;
         }
         else
         {
-            gameObject.layer = 0;
+            gameObject.layer = objectFreeLayer;
             rb.useGravity = true;
             rb.drag = 1;
-            //rb.isKinematic = false;
+           // rb.isKinematic = false;
             transform.SetParent(null);
             taken = false;
+            rb.freezeRotation = false;
         }
     }
 
@@ -43,9 +52,10 @@ public class InteractableMovable : Interactable
     {
         if (taken)
         {
-            if(Vector3.Distance(transform.position, takenPosition.position) > 0.3f)
+            transform.rotation = heldPosition.rotation;
+            if (Vector3.Distance(transform.position, heldPosition.position) > distanceMax)
             {
-                Vector3 moveDirection = (takenPosition.position - transform.position).normalized;
+                Vector3 moveDirection = (heldPosition.position - transform.position).normalized;
                 rb.AddForce(moveDirection * moveForce);
             }
         }

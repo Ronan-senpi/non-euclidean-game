@@ -8,7 +8,7 @@ public class Activable : MonoBehaviour
     [HideInInspector] public UnityEvent onActivate = new UnityEvent();
     [HideInInspector] public UnityEvent onDeactivate = new UnityEvent();
 
-    private void Awake()
+    protected virtual void Awake()
     {
         onActivate.AddListener(ActionOnUse);
         onDeactivate.AddListener(ActionOnDeactivate);
