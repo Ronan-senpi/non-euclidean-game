@@ -5,15 +5,13 @@ using UnityEngine.Events;
 
 public class Activable : MonoBehaviour
 {
-    [HideInInspector] public UnityEvent onActivate = new UnityEvent();
-    [HideInInspector] public UnityEvent onDeactivate = new UnityEvent();
+    [HideInInspector] public UnityEvent onStateChange = new UnityEvent();
+    protected bool isActive;
 
     protected virtual void Awake()
     {
-        onActivate.AddListener(ActionOnUse);
-        onDeactivate.AddListener(ActionOnDeactivate);
+        onStateChange.AddListener(ActionOnUse);
     }
 
     protected virtual void ActionOnUse() { }
-    protected virtual void ActionOnDeactivate() { }
 }

@@ -8,41 +8,21 @@ public class PressurePlate : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if(other.gameObject.tag == "Interactable" || other.gameObject.tag == "Player")
-        {
+        if (other.gameObject.tag == "Interactable" || other.gameObject.tag == "Player")
             PressPlate();
-        }
     }
 
     private void OnTriggerExit(Collider other)
     {
-        if(other.gameObject.tag == "Interactable" || other.gameObject.tag == "Player")
-        {
-            QuitPlate();
-        }
+        if (other.gameObject.tag == "Interactable" || other.gameObject.tag == "Player")
+            PressPlate();
     }
 
     public void PressPlate()
     {
-        if(linkedObject != null)
-        {
-            linkedObject.onActivate?.Invoke();
-        }
-        else
-        {
-            Debug.LogError("No object linked to " + name);
-        }
-    }
-
-    public void QuitPlate()
-    {
         if (linkedObject != null)
-        {
-            linkedObject.onDeactivate?.Invoke();
-        }
+            linkedObject.onStateChange?.Invoke();
         else
-        {
             Debug.LogError("No object linked to " + name);
-        }
     }
 }

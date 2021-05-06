@@ -5,7 +5,6 @@ using UnityEngine.Events;
 
 public class Door : Activable
 {
-    private bool opened = false;
     private Transform leftWing;
     private Vector3 leftWingStartPosition;
     private Transform rightWing;
@@ -24,25 +23,19 @@ public class Door : Activable
 
     protected override void ActionOnUse()
     {
-        opened = true;
-    }
-
-    protected override void ActionOnDeactivate()
-    {
-        opened = false;
+        isActive = !isActive;
     }
 
     public void Update()
     {
         float step = Time.deltaTime * openingSpeed;
-        if (opened)
+        if (isActive)
         {
             if (Vector3.Distance(leftWing.position, rightWing.position) < openingDistance)
             {
                 leftWing.Translate(-Vector3.right * step);
                 rightWing.Translate(Vector3.right * step);
             }
-
         }
         else
         {

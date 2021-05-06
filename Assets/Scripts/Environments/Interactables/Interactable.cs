@@ -6,14 +6,31 @@ using UnityEngine.Events;
 public class Interactable : MonoBehaviour
 {
     [HideInInspector] public UnityEvent onPlayerInteract = new UnityEvent();
+    [HideInInspector] public UnityEvent onPlayerLooking = new UnityEvent();
+    [HideInInspector] public UnityEvent onPlayerStopLooking = new UnityEvent();
+
+    private Outline outline;
 
     protected virtual void Awake()
     {
+        outline = GetComponent<Outline>();
         onPlayerInteract.AddListener(ActionOnUse);
+        onPlayerLooking.AddListener(HighlightInteraction);
+        onPlayerStopLooking.AddListener(StopInteraction);
     }
 
 
-    protected virtual void ActionOnUse() {
-        Debug.Log("INTERACT");
+    protected virtual void ActionOnUse() { }
+
+    protected virtual void HighlightInteraction()
+    {
+        if (outline != null)
+            outline.enabled = true;
+    }
+
+    protected virtual void StopInteraction()
+    {
+        if (outline != null)
+            outline.enabled = false;
     }
 }

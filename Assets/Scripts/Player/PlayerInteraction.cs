@@ -42,14 +42,18 @@ public class PlayerInteraction : MonoBehaviour
             if (hit.collider.gameObject.tag == "Interactable")
             {
                 interactableObject = hit.collider.gameObject.GetComponent<Interactable>();
+                interactableObject.onPlayerLooking?.Invoke();
             }
             else if (interactableObject != null)
             {
+                interactableObject.onPlayerStopLooking?.Invoke();
                 interactableObject = null;
+
             }
         }
         else if (interactableObject != null)
         {
+            interactableObject.onPlayerStopLooking?.Invoke();
             interactableObject = null;
         }
     }
