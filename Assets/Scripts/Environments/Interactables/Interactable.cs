@@ -22,13 +22,13 @@ public class Interactable : MonoBehaviour
 
     protected virtual void ActionOnUse() { }
 
-    protected virtual void HighlightInteraction()
+    protected void HighlightInteraction()
     {
         if (outline != null)
             outline.enabled = true;
     }
 
-    protected virtual void StopInteraction()
+    protected void StopInteraction()
     {
         if (outline != null)
             outline.enabled = false;
