@@ -16,13 +16,13 @@ public class PlayerInteraction : MonoBehaviour
             return instance;
         }
     }
-
+    [SerializeField] private GameObject interactionInputHint;
 
     [SerializeField] private float maxDistance;
     private Transform cam;
     private Ray camRay;
     private RaycastHit hit;
-    public Interactable interactableObject;
+    private Interactable interactableObject;
     private Interactable objectInHand;
     public Interactable ObjectInHand
     {
@@ -31,6 +31,7 @@ public class PlayerInteraction : MonoBehaviour
     private void Awake()
     {
         cam = Camera.main.transform;
+        
     }
 
     private void FixedUpdate()
@@ -84,5 +85,15 @@ public class PlayerInteraction : MonoBehaviour
                 objectInHand = null;
             }
         }
+    }
+
+    public void ShowInputHint()
+    {
+        interactionInputHint.SetActive(true);
+    }
+
+    public void HideInputHint()
+    {
+        interactionInputHint.SetActive(false);
     }
 }
