@@ -16,7 +16,9 @@ public class Interactable : MonoBehaviour
         outline = GetComponent<Outline>();
         onPlayerInteract.AddListener(ActionOnUse);
         onPlayerLooking.AddListener(HighlightInteraction);
+        onPlayerLooking.AddListener(UIManager.Instance.DisplayInputHint);
         onPlayerStopLooking.AddListener(StopInteraction);
+        onPlayerStopLooking.AddListener(UIManager.Instance.HideInputHint);
     }
 
 
