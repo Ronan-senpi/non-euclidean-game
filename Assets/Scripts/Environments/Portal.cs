@@ -50,6 +50,19 @@ public class Portal : MonoBehaviour
 		HandleTravellers();
 	}
 
+	public Ray TransformRay(Ray ray)
+	{
+		Ray result = new Ray();
+		
+		Vector3 localOrigin = transform.InverseTransformPoint(ray.origin);
+		result.origin = _linkedPortal.transform.TransformPoint(localOrigin);
+		
+		Vector3 localDirection = transform.InverseTransformDirection(ray.direction);
+		result.direction = _linkedPortal.transform.TransformDirection(localDirection);
+
+		return result;
+	}
+
 	private void HandleTravellers()
 	{
 		for (int i = 0; i < _trackedTravellers.Count; i++)
