@@ -23,7 +23,10 @@ public class PlayerMovements : PortalTraveller
 	private float _verticalRotation;
 	private bool _grounded;
 	private int _playerMask;
-	private Vector3 _gravity = Physics.gravity;
+	
+	private Vector3 GravityDir { get; set; } = Physics.gravity.normalized;
+	private float GravityMag { get; set; }= Physics.gravity.magnitude;
+	private Vector3 Gravity => GravityDir * GravityMag;
 
 	private const float JUMP_CD = 0.1f;
 	private float _currentJumpCd;
@@ -34,19 +37,9 @@ public class PlayerMovements : PortalTraveller
 		_playerMask = 1 << LayerMask.NameToLayer("Player");
 	}
 
-	private void RotateGravity(Quaternion rot)
-	{
-		_gravity = rot * _gravity;
-	}
-
-	private void SetGravity(Vector3 gravity)
-	{
-		_gravity = gravity;
-	}
-
 	private void UpdateGrounded()
 	{
-		Vector3 nextVel = _rigidbody.velocity + _gravity * Time.deltaTime;
+		Vector3 nextVel = _rigidbody.velocity + Gravity * Time.deltaTime;
 		Vector3 nextPos = _rigidbody.position + nextVel * Time.deltaTime;
 		
 		_grounded = Physics.CheckSphere(
@@ -62,8 +55,9 @@ public class PlayerMovements : PortalTraveller
 		
 		Quaternion velocityRot = Quaternion.FromToRotation(fromPortal.forward, toPortal.forward);
 		_rigidbody.velocity = velocityRot * _rigidbody.velocity;
-		
-		SetGravity(-toPortal.transform.up * Physics.gravity.magnitude);
+
+		Vector3 localGravityDir = fromPortal.InverseTransformDirection(GravityDir);
+		GravityDir = toPortal.TransformDirection(localGravityDir);
 	}
 
 	// http://wiki.unity3d.com/index.php?title=RigidbodyFPSWalker
@@ -76,7 +70,7 @@ public class PlayerMovements : PortalTraveller
 
 	private void FixedUpdate()
 	{
-		_rigidbody.AddForce(_gravity, ForceMode.Acceleration);
+		_rigidbody.AddForce(Gravity, ForceMode.Acceleration);
 	}
 
 	private void Update()
@@ -100,7 +94,7 @@ public class PlayerMovements : PortalTraveller
 		_rigidbody.MoveRotation(_rigidbody.rotation * Quaternion.AngleAxis(lookRotation.x, Vector3.up));
 
 		Vector3 a = transform.position + transform.up * 4;
-		Debug.DrawLine(a, a + _gravity.normalized, Color.red);
+		Debug.DrawLine(a, a + GravityDir, Color.red);
 		
 		
 		// Player move

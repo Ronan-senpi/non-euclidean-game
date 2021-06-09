@@ -35,12 +35,15 @@ public class PlayerInteraction : MonoBehaviour
     [SerializeField] private float maxDistance;
     private Transform cam;
     private Ray camRay;
-    private RaycastHit hit;
     private Lookable objectBeingLookedAt;
     private Movable objectInHand;
+
+    private int _portalScreenLayerMask;
     
     private void Awake()
     {
+        _portalScreenLayerMask = 1 << LayerMask.NameToLayer("PortalScreen");
+        
         cam = Camera.main.transform;
     }
 
@@ -55,7 +58,7 @@ public class PlayerInteraction : MonoBehaviour
         camRay = new Ray(cam.position, cam.forward);
 
         Lookable objectCurrentlyBeingLookedAt = null;
-        if (Physics.Raycast(camRay, out hit, maxDistance) && hit.collider.gameObject.CompareTag("Interactable"))
+        if (Physics.Raycast(camRay, out RaycastHit hit, maxDistance) && hit.collider.gameObject.CompareTag("Interactable"))
         {
             objectCurrentlyBeingLookedAt = hit.collider.gameObject.GetComponent<Lookable>();
         }
@@ -85,7 +88,17 @@ public class PlayerInteraction : MonoBehaviour
         {
             // Centering
             Vector3 currentPosition = objectInHand.transform.position;
-            Vector3 targetPosition = cam.position + cam.forward * objectInHand.MinBoundingRadius - cam.up * 0.5f;
+            Vector3 handHeight = cam.position - cam.up * 0.5f;
+
+            Ray ray = new Ray(handHeight, cam.forward);
+            if (Physics.Raycast(ray, out RaycastHit hit, objectInHand.MinBoundingRadius, _portalScreenLayerMask))
+            {
+                GameObject portalScreen = hit.collider.gameObject;
+                Portal portal = portalScreen.transform.parent.GetComponent<Portal>();
+                ray = portal.TransformRay(ray);
+            }
+            
+            Vector3 targetPosition = ray.origin + ray.direction * objectInHand.MinBoundingRadius;
             Vector3 velocity = (targetPosition - currentPosition) * _movedObjectCenteringSpeed;
 
             objectInHand.Rigidbody.velocity = velocity / Time.fixedDeltaTime;
@@ -110,8 +123,6 @@ public class PlayerInteraction : MonoBehaviour
     {
         if (Input.GetButtonDown("Interact"))
         {
-            Debug.Log("Input Interaction");
-
             if (objectInHand)
             {
                 objectInHand.OnPlayerStopMoving.Invoke();
@@ -119,8 +130,6 @@ public class PlayerInteraction : MonoBehaviour
             }
             else if (objectBeingLookedAt)
             {
-                Debug.Log("Start Interacting");
-
                 switch (objectBeingLookedAt)
                 {
                     case Interactable interactable:
