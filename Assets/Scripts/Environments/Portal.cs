@@ -6,7 +6,15 @@ public class Portal : MonoBehaviour
 	[Header("Main Settings")]
 	[SerializeField]
 	private Portal _linkedPortal;
-
+	public Portal _LinkedPortal
+    {
+        get { return _linkedPortal; }
+        set
+        {
+			_linkedPortal = value;
+			_linkedPortal._linkedPortal = this;
+        }
+    }
 	[SerializeField]
 	private MeshRenderer _screen;
 
