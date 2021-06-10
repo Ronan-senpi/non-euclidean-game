@@ -21,6 +21,8 @@ public class Portal : MonoBehaviour
 	[SerializeField]
 	private int _recursionLimit = 5;
 
+
+
 	[Header("Advanced Settings")]
 	[SerializeField]
 	private float _nearClipOffset = 0.05f;
@@ -273,20 +275,19 @@ public class Portal : MonoBehaviour
 
 	private void CreateViewTexture()
 	{
-		if (_viewTexture == null || _viewTexture.width != Screen.width || _viewTexture.height != Screen.height)
-		{
-			if (_viewTexture != null)
-			{
-				_viewTexture.Release();
-			}
-
-			_viewTexture = new RenderTexture(Screen.width, Screen.height, 0);
+        if (_viewTexture == null || _viewTexture.width != Screen.width || _viewTexture.height != Screen.height)
+        {
+            if (_viewTexture != null)
+            {
+                _viewTexture.Release();
+            }
+            _viewTexture = new RenderTexture(Screen.width, Screen.height, 24);
 			// Render the view from the portal camera to the view texture
 			_portalCam.targetTexture = _viewTexture;
 			// Display the view texture on the screen of the linked portal
 			_linkedPortal._screen.material.SetTexture(MainTex, _viewTexture);
-		}
-	}
+        }
+    }
 
 	// Sets the thickness of the portal screen so as not to clip with camera near plane when player goes through
 	private float ProtectScreenFromClipping(Vector3 viewPoint)
