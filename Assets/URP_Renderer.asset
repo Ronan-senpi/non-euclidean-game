@@ -101,7 +101,7 @@ MonoBehaviour:
     blitMaterial: {fileID: 2100000, guid: d5e9f5af26208ca4295f1b178b647aae, type: 2}
     blitMaterialPassIndex: 0
     destination: 0
-    textureId: _BlitPassTexture
+    textureId: _MainTex
 --- !u!114 &7297811446847065773
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -217,20 +217,6 @@
         {
             "m_OutputSlot": {
                 "m_Node": {
-                    "m_Id": "2d10d9468d314d448322cb58833f3bd5"
-                },
-                "m_SlotId": 1
-            },
-            "m_InputSlot": {
-                "m_Node": {
-                    "m_Id": "e07c0abe10984e498b1bd7add081da9e"
-                },
-                "m_SlotId": -955023228
-            }
-        },
-        {
-            "m_OutputSlot": {
-                "m_Node": {
                     "m_Id": "31780058630c4a06a5d24f9a1ad1667a"
                 },
                 "m_SlotId": 0
@@ -380,6 +366,20 @@
                     "m_Id": "e07c0abe10984e498b1bd7add081da9e"
                 },
                 "m_SlotId": -602513774
+            }
+        },
+        {
+            "m_OutputSlot": {
+                "m_Node": {
+                    "m_Id": "8321a43109604bb89546ab78da708acd"
+                },
+                "m_SlotId": 1
+            },
+            "m_InputSlot": {
+                "m_Node": {
+                    "m_Id": "e07c0abe10984e498b1bd7add081da9e"
+                },
+                "m_SlotId": -955023228
             }
         },
         {
@@ -705,7 +705,7 @@
     "m_SlotType": 0,
     "m_Hidden": false,
     "m_ShaderOutputName": "Vector3_d3ac742edfa342a0b16a5f17761cfb64",
-    "m_StageCapability": 2,
+    "m_StageCapability": 3,
     "m_Value": {
         "x": 0.0,
         "y": 0.0,
@@ -844,9 +844,9 @@
         "m_Expanded": true,
         "m_Position": {
             "serializedVersion": "2",
-            "x": -63.99979782104492,
-            "y": 258.99993896484377,
-            "width": 145.0,
+            "x": -532.0,
+            "y": 284.0,
+            "width": 145.00001525878907,
             "height": 34.0
         }
     },
@@ -980,7 +980,7 @@
     "m_SlotType": 0,
     "m_Hidden": false,
     "m_ShaderOutputName": "Color_8f451c8309404b729f3dceada4140349",
-    "m_StageCapability": 2,
+    "m_StageCapability": 3,
     "m_Value": {
         "x": 0.8207547068595886,
         "y": 0.11227307468652725,
@@ -1291,7 +1291,7 @@
     "m_SlotType": 0,
     "m_Hidden": false,
     "m_ShaderOutputName": "Vector1_df6ffa743ca147f58e1e52bb5b97b8af",
-    "m_StageCapability": 2,
+    "m_StageCapability": 3,
     "m_Value": 0.0,
     "m_DefaultValue": 0.0,
     "m_Labels": []
@@ -1349,9 +1349,9 @@
         "m_Expanded": true,
         "m_Position": {
             "serializedVersion": "2",
-            "x": -22.99974822998047,
-            "y": 168.99998474121095,
-            "width": 123.99999237060547,
+            "x": -491.0,
+            "y": 194.00003051757813,
+            "width": 124.0,
             "height": 34.0
         }
     },
@@ -1450,8 +1450,8 @@
     "m_ObjectId": "3840be9aa8814a23808f38644865d542",
     "m_Title": "Far fog",
     "m_Position": {
-        "x": -126.99951171875,
-        "y": -137.0001220703125
+        "x": -595.0,
+        "y": -111.99996948242188
     }
 }
 
@@ -1640,8 +1640,8 @@
         "m_Expanded": true,
         "m_Position": {
             "serializedVersion": "2",
-            "x": 230.0001678466797,
-            "y": 73.99993896484375,
+            "x": -238.0,
+            "y": 98.99999237060547,
             "width": 174.0,
             "height": 34.0
         }
@@ -1672,7 +1672,7 @@
     "m_SlotType": 0,
     "m_Hidden": false,
     "m_ShaderOutputName": "Vector3_d3ac742edfa342a0b16a5f17761cfb64",
-    "m_StageCapability": 2,
+    "m_StageCapability": 3,
     "m_Value": {
         "x": 0.0,
         "y": 0.0,
@@ -1813,7 +1813,7 @@
     "m_SlotType": 0,
     "m_Hidden": false,
     "m_ShaderOutputName": "Vector1_6ab34b85fb9f49d8b8dbe37134494686",
-    "m_StageCapability": 2,
+    "m_StageCapability": 3,
     "m_Value": 0.0,
     "m_DefaultValue": 0.0,
     "m_Labels": []
@@ -1936,7 +1936,7 @@
     "m_SlotType": 0,
     "m_Hidden": false,
     "m_ShaderOutputName": "Vector3_51e44d80606a4411b8b77cdf7f4ba3d4",
-    "m_StageCapability": 2,
+    "m_StageCapability": 3,
     "m_Value": {
         "x": 0.0,
         "y": 0.0,
@@ -1959,7 +1959,7 @@
     "m_SlotType": 0,
     "m_Hidden": false,
     "m_ShaderOutputName": "Vector3_d3ac742edfa342a0b16a5f17761cfb64",
-    "m_StageCapability": 2,
+    "m_StageCapability": 3,
     "m_Value": {
         "x": 0.0,
         "y": 0.0,
@@ -2017,7 +2017,7 @@
     "m_SlotType": 1,
     "m_Hidden": false,
     "m_ShaderOutputName": "OutVector4",
-    "m_StageCapability": 2,
+    "m_StageCapability": 3,
     "m_Value": {
         "x": 0.0,
         "y": 0.0,
@@ -2191,7 +2191,7 @@
     "m_SlotType": 1,
     "m_Hidden": false,
     "m_ShaderOutputName": "OutVector4",
-    "m_StageCapability": 2,
+    "m_StageCapability": 3,
     "m_Value": {
         "x": 0.0,
         "y": 0.0,
@@ -2219,8 +2219,8 @@
         "m_Expanded": true,
         "m_Position": {
             "serializedVersion": "2",
-            "x": 255.00022888183595,
-            "y": 35.999916076660159,
+            "x": -213.0,
+            "y": 60.9999885559082,
             "width": 149.0,
             "height": 34.0
         }
@@ -2254,10 +2254,10 @@
         "m_Expanded": true,
         "m_Position": {
             "serializedVersion": "2",
-            "x": -101.99981689453125,
-            "y": -22.000076293945314,
-            "width": 56.0,
-            "height": 23.999998092651368
+            "x": -570.0,
+            "y": 3.0000030994415285,
+            "width": 56.000003814697269,
+            "height": 24.000001907348634
         }
     },
     "m_Slots": [
@@ -2325,9 +2325,9 @@
         "m_Expanded": true,
         "m_Position": {
             "serializedVersion": "2",
-            "x": -96.99986267089844,
-            "y": 212.9999237060547,
-            "width": 177.99998474121095,
+            "x": -565.0,
+            "y": 238.00003051757813,
+            "width": 178.00001525878907,
             "height": 34.0
         }
     },
@@ -2422,7 +2422,7 @@
     "m_SlotType": 0,
     "m_Hidden": false,
     "m_ShaderOutputName": "Vector1_df6ffa743ca147f58e1e52bb5b97b8af",
-    "m_StageCapability": 2,
+    "m_StageCapability": 3,
     "m_Value": 0.0,
     "m_DefaultValue": 0.0,
     "m_Labels": []
@@ -2437,7 +2437,7 @@
     "m_SlotType": 0,
     "m_Hidden": false,
     "m_ShaderOutputName": "Vector3_51e44d80606a4411b8b77cdf7f4ba3d4",
-    "m_StageCapability": 2,
+    "m_StageCapability": 3,
     "m_Value": {
         "x": 0.0,
         "y": 0.0,
@@ -2638,8 +2638,8 @@
         "m_Expanded": true,
         "m_Position": {
             "serializedVersion": "2",
-            "x": 241.00018310546876,
-            "y": 2.0000338554382326,
+            "x": -227.0,
+            "y": 27.000019073486329,
             "width": 163.0,
             "height": 34.0
         }
@@ -2872,8 +2872,8 @@
         "m_Expanded": true,
         "m_Position": {
             "serializedVersion": "2",
-            "x": 155.00022888183595,
-            "y": 120.99990844726563,
+            "x": -313.0,
+            "y": 146.0,
             "width": 269.0,
             "height": 326.0
         }
@@ -2963,7 +2963,7 @@
     "m_SlotType": 0,
     "m_Hidden": false,
     "m_ShaderOutputName": "Vector1_df6ffa743ca147f58e1e52bb5b97b8af",
-    "m_StageCapability": 2,
+    "m_StageCapability": 3,
     "m_Value": 0.0,
     "m_DefaultValue": 0.0,
     "m_Labels": []
@@ -2978,7 +2978,7 @@
     "m_SlotType": 0,
     "m_Hidden": false,
     "m_ShaderOutputName": "Color_8f451c8309404b729f3dceada4140349",
-    "m_StageCapability": 2,
+    "m_StageCapability": 3,
     "m_Value": {
         "x": 0.8207547068595886,
         "y": 0.11227307468652725,
@@ -3068,7 +3068,7 @@
     "m_SlotType": 0,
     "m_Hidden": false,
     "m_ShaderOutputName": "Vector1_dc17cca334914a33b791ac8aa2332d78",
-    "m_StageCapability": 2,
+    "m_StageCapability": 3,
     "m_Value": 0.0,
     "m_DefaultValue": 0.0,
     "m_Labels": []
@@ -3290,7 +3290,7 @@
     "m_SlotType": 1,
     "m_Hidden": false,
     "m_ShaderOutputName": "OutVector4",
-    "m_StageCapability": 2,
+    "m_StageCapability": 3,
     "m_Value": {
         "x": 0.0,
         "y": 0.0,
@@ -3315,7 +3315,7 @@
     "m_SlotType": 0,
     "m_Hidden": false,
     "m_ShaderOutputName": "Vector3_51e44d80606a4411b8b77cdf7f4ba3d4",
-    "m_StageCapability": 2,
+    "m_StageCapability": 3,
     "m_Value": {
         "x": 0.0,
         "y": 0.0,
@@ -3479,7 +3479,7 @@
     "m_SlotType": 0,
     "m_Hidden": false,
     "m_ShaderOutputName": "Vector1_6ab34b85fb9f49d8b8dbe37134494686",
-    "m_StageCapability": 2,
+    "m_StageCapability": 3,
     "m_Value": 0.0,
     "m_DefaultValue": 0.0,
     "m_Labels": []
@@ -3497,8 +3497,8 @@
         "m_Expanded": true,
         "m_Position": {
             "serializedVersion": "2",
-            "x": 468.00018310546877,
-            "y": -78.0,
+            "x": 0.00000762939453125,
+            "y": -53.00000762939453,
             "width": 270.0,
             "height": 398.0
         }
@@ -3561,7 +3561,7 @@
     "m_SlotType": 0,
     "m_Hidden": false,
     "m_ShaderOutputName": "Vector1_6ab34b85fb9f49d8b8dbe37134494686",
-    "m_StageCapability": 2,
+    "m_StageCapability": 3,
     "m_Value": 0.0,
     "m_DefaultValue": 0.0,
     "m_Labels": []
@@ -3695,7 +3695,7 @@
     "m_SlotType": 0,
     "m_Hidden": false,
     "m_ShaderOutputName": "Vector1_dc17cca334914a33b791ac8aa2332d78",
-    "m_StageCapability": 2,
+    "m_StageCapability": 3,
     "m_Value": 0.0,
     "m_DefaultValue": 0.0,
     "m_Labels": []
@@ -3758,7 +3758,7 @@
     "m_SlotType": 0,
     "m_Hidden": false,
     "m_ShaderOutputName": "Color_8f451c8309404b729f3dceada4140349",
-    "m_StageCapability": 2,
+    "m_StageCapability": 3,
     "m_Value": {
         "x": 0.8207547068595886,
         "y": 0.11227307468652725,
@@ -3786,9 +3786,9 @@
         "m_Expanded": true,
         "m_Position": {
             "serializedVersion": "2",
-            "x": -2004.0,
-            "y": -93.99995422363281,
-            "width": 158.00001525878907,
+            "x": -2074.0,
+            "y": -102.0,
+            "width": 158.0,
             "height": 34.0
         }
     },
@@ -3818,7 +3818,7 @@
     "m_SlotType": 0,
     "m_Hidden": false,
     "m_ShaderOutputName": "Vector1_dc17cca334914a33b791ac8aa2332d78",
-    "m_StageCapability": 2,
+    "m_StageCapability": 3,
     "m_Value": 0.0,
     "m_DefaultValue": 0.0,
     "m_Labels": []
