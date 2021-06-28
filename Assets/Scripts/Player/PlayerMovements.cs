@@ -19,11 +19,20 @@ public class PlayerMovements : PortalTraveller
 	private float _moveAcceleration = 5;
 	[SerializeField]
 	private float _jumpHeight = 2;
+	
+	[SerializeField]
+	[Range(0, 1)]
+	private float _feetFriction = 0.3f;
+
+	[SerializeField]
+	private MeshCollider _feetCollider;
 
 	private float _verticalRotation;
 	private bool _grounded;
-	private int _playerMask;
-	private Vector3 _gravity = Physics.gravity;
+	
+	private Vector3 GravityDir { get; set; } = Physics.gravity.normalized;
+	private float GravityMag { get; set; } = Physics.gravity.magnitude;
+	private Vector3 Gravity => GravityDir * (GravityMag * transform.lossyScale.x);
 
 	private const float JUMP_CD = 0.1f;
 	private float _currentJumpCd;
@@ -31,29 +40,14 @@ public class PlayerMovements : PortalTraveller
 	private void Start()
 	{
 		Cursor.lockState = CursorLockMode.Locked;
-		_playerMask = 1 << LayerMask.NameToLayer("Player");
-	}
 
-	private void RotateGravity(Quaternion rot)
-	{
-		_gravity = rot * _gravity;
-	}
-
-	private void SetGravity(Vector3 gravity)
-	{
-		_gravity = gravity;
-	}
-
-	private void UpdateGrounded()
-	{
-		Vector3 nextVel = _rigidbody.velocity + _gravity * Time.deltaTime;
-		Vector3 nextPos = _rigidbody.position + nextVel * Time.deltaTime;
-		
-		_grounded = Physics.CheckSphere(
-			nextPos + transform.up * -0.7f,
-			0.3f,
-			~_playerMask,
-			QueryTriggerInteraction.Ignore);
+		_feetCollider.material = new PhysicMaterial
+		{
+			dynamicFriction = _feetFriction,
+			staticFriction = _feetFriction,
+			bounceCombine = PhysicMaterialCombine.Minimum,
+			frictionCombine = PhysicMaterialCombine.Minimum
+		};
 	}
 
 	public override void Teleport(Transform fromPortal, Transform toPortal, Vector3 pos, Quaternion rot)
@@ -62,8 +56,9 @@ public class PlayerMovements : PortalTraveller
 		
 		Quaternion velocityRot = Quaternion.FromToRotation(fromPortal.forward, toPortal.forward);
 		_rigidbody.velocity = velocityRot * _rigidbody.velocity;
-		
-		SetGravity(-toPortal.transform.up * Physics.gravity.magnitude);
+
+		Vector3 localGravityDir = fromPortal.InverseTransformDirection(GravityDir);
+		GravityDir = toPortal.TransformDirection(localGravityDir);
 	}
 
 	// http://wiki.unity3d.com/index.php?title=RigidbodyFPSWalker
@@ -76,14 +71,24 @@ public class PlayerMovements : PortalTraveller
 
 	private void FixedUpdate()
 	{
-		_rigidbody.AddForce(_gravity, ForceMode.Acceleration);
+		_rigidbody.AddForce(Gravity, ForceMode.Acceleration);
+		_grounded = false;
+	}
+
+	private void OnCollisionStay(Collision collision)
+	{
+		if (collision.GetContact(0).thisCollider == _feetCollider)
+		{
+			_grounded = true;
+		}
 	}
 
 	private void Update()
 	{
+		_feetCollider.material.dynamicFriction = _feetFriction * transform.lossyScale.x;
+		_feetCollider.material.staticFriction = _feetFriction * transform.lossyScale.x;
+		
 		_currentJumpCd = Math.Max(_currentJumpCd - Time.deltaTime, 0);
-
-		UpdateGrounded();
 		
 		// Camera rotation
 		Vector2 lookRotation = new Vector2(
@@ -100,7 +105,7 @@ public class PlayerMovements : PortalTraveller
 		_rigidbody.MoveRotation(_rigidbody.rotation * Quaternion.AngleAxis(lookRotation.x, Vector3.up));
 
 		Vector3 a = transform.position + transform.up * 4;
-		Debug.DrawLine(a, a + _gravity.normalized, Color.red);
+		Debug.DrawLine(a, a + GravityDir, Color.red);
 		
 		
 		// Player move
@@ -116,7 +121,7 @@ public class PlayerMovements : PortalTraveller
 		Vector3 moveDir = new Vector3(right, 0, forward).normalized;
 		Vector3 moveVec = moveDir * _moveSpeed;
 
-		Vector3 velocity = transform.InverseTransformDirection(_rigidbody.velocity);
+		Vector3 velocity = transform.InverseTransformVector(_rigidbody.velocity);
 		Vector3 accelerationVec;
 		
 		if (_grounded)
@@ -150,6 +155,6 @@ public class PlayerMovements : PortalTraveller
 			accelerationVec *= _airMultiplier; // Much lower acceleration when in air
 		}
 		
-		_rigidbody.AddForce(transform.TransformDirection(accelerationVec), ForceMode.VelocityChange);
+		_rigidbody.AddForce(transform.TransformVector(accelerationVec), ForceMode.VelocityChange);
 	}
 }

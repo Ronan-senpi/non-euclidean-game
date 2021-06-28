@@ -6,12 +6,21 @@ public class Portal : MonoBehaviour
 	[Header("Main Settings")]
 	[SerializeField]
 	private Portal _linkedPortal;
-
+	public Portal _LinkedPortal
+    {
+        get { return _linkedPortal; }
+        set
+        {
+			_linkedPortal = value;
+        }
+    }
 	[SerializeField]
 	private MeshRenderer _screen;
 
 	[SerializeField]
 	private int _recursionLimit = 5;
+
+
 
 	[Header("Advanced Settings")]
 	[SerializeField]
@@ -48,6 +57,19 @@ public class Portal : MonoBehaviour
 	private void LateUpdate()
 	{
 		HandleTravellers();
+	}
+
+	public Ray TransformRay(Ray ray)
+	{
+		Ray result = new Ray();
+		
+		Vector3 localOrigin = transform.InverseTransformPoint(ray.origin);
+		result.origin = _linkedPortal.transform.TransformPoint(localOrigin);
+		
+		Vector3 localDirection = transform.InverseTransformDirection(ray.direction);
+		result.direction = _linkedPortal.transform.TransformDirection(localDirection);
+
+		return result;
 	}
 
 	private void HandleTravellers()
@@ -252,20 +274,19 @@ public class Portal : MonoBehaviour
 
 	private void CreateViewTexture()
 	{
-		if (_viewTexture == null || _viewTexture.width != Screen.width || _viewTexture.height != Screen.height)
-		{
-			if (_viewTexture != null)
-			{
-				_viewTexture.Release();
-			}
-
-			_viewTexture = new RenderTexture(Screen.width, Screen.height, 0);
+        if (_viewTexture == null || _viewTexture.width != Screen.width || _viewTexture.height != Screen.height)
+        {
+            if (_viewTexture != null)
+            {
+                _viewTexture.Release();
+            }
+            _viewTexture = new RenderTexture(Screen.width, Screen.height, 24);
 			// Render the view from the portal camera to the view texture
 			_portalCam.targetTexture = _viewTexture;
 			// Display the view texture on the screen of the linked portal
 			_linkedPortal._screen.material.SetTexture(MainTex, _viewTexture);
-		}
-	}
+        }
+    }
 
 	// Sets the thickness of the portal screen so as not to clip with camera near plane when player goes through
 	private float ProtectScreenFromClipping(Vector3 viewPoint)
@@ -403,4 +424,9 @@ public class Portal : MonoBehaviour
 			_linkedPortal._linkedPortal = this;
 		}
 	}
+
+	public void ResetViewtTexture()
+    {
+		_viewTexture = null;
+    }
 }

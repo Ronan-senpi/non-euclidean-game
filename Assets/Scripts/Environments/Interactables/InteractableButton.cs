@@ -1,13 +1,17 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class InteractableButton : Interactable
 {
     [SerializeField] private Activable linkedObject;
 
-    protected override void ActionOnUse()
+    protected override void Awake()
     {
-        linkedObject.onStateChange?.Invoke();
+        base.Awake();
+        OnPlayerInteract.AddListener(ActionOnUse);
+    }
+
+    private void ActionOnUse()
+    {
+        linkedObject.onStateChange.Invoke();
     }
 }
