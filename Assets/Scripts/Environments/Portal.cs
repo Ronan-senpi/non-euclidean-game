@@ -12,7 +12,6 @@ public class Portal : MonoBehaviour
         set
         {
 			_linkedPortal = value;
-			_linkedPortal._linkedPortal = this;
         }
     }
 	[SerializeField]
@@ -425,4 +424,9 @@ public class Portal : MonoBehaviour
 			_linkedPortal._linkedPortal = this;
 		}
 	}
+
+	public void ResetViewtTexture()
+    {
+		_viewTexture = null;
+    }
 }
