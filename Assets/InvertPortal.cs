@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class InvertPortal : Activable
 {
-    [SerializeField] private Portal portalIn;
-    [SerializeField] private Portal portalOut1;
-    [SerializeField] private Portal portalOut2;
+    [SerializeField] private Portal portal1;
+    [SerializeField] private Portal portal2;
+    [SerializeField] private Portal portal3;
 
     protected override void Awake()
     {
@@ -15,15 +15,26 @@ public class InvertPortal : Activable
 
     protected override void ActionOnUse()
     {
-        if (portalIn._LinkedPortal == portalOut1)
+        if (portal1._LinkedPortal == portal2)
         {
-            Debug.Log("AHAHAH");
-            portalIn._LinkedPortal = portalOut2;
-        }
+            portal3.enabled = true;
+            portal2.enabled = false;
+            portal1._LinkedPortal = portal3;
+            portal2._LinkedPortal = null;
+            portal3._LinkedPortal = portal1;
+            portal3.ResetViewtTexture();
+            portal1.ResetViewtTexture();
+       }
         else
         {
-            Debug.Log("OHOHOHO");
-            portalIn._LinkedPortal = portalOut1;
+            portal2.enabled = true;
+            portal3 .enabled = false;
+            portal1._LinkedPortal = portal2;
+            portal3._LinkedPortal = null;
+            portal2._LinkedPortal = portal1;
+            portal2.ResetViewtTexture();
+            portal1.ResetViewtTexture();
+
         }
     }
 

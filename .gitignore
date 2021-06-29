@@ -62,4 +62,5 @@ sysinfo.txt
 crashlytics-build.properties
 
 # Backup blender files
-.blend1
+*.blend1
+*.blend1.meta
