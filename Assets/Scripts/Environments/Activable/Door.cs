@@ -33,8 +33,8 @@ public class Door : Activable
         {
             if (Vector3.Distance(leftWing.position, rightWing.position) < openingDistance)
             {
-                leftWing.Translate(-Vector3.right * step);
-                rightWing.Translate(Vector3.right * step);
+                leftWing.Translate(-transform.right * step);
+                rightWing.Translate(transform.right * step);
             }
         }
         else
