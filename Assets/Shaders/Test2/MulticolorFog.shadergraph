@@ -1550,7 +1550,7 @@
     },
     "m_Name": "Overal Fog Density",
     "m_DefaultReferenceName": "Vector1_3ddb13bebfd74dea81585d21caab7c56",
-    "m_OverrideReferenceName": "",
+    "m_OverrideReferenceName": "OveralFogDensity",
     "m_GeneratePropertyBlock": true,
     "m_Precision": 0,
     "overrideHLSLDeclaration": false,

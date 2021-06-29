@@ -74,8 +74,8 @@ Material:
     - _ZWrite: 1
     - sliceOffsetDst: 0
     m_Colors:
-    - _Color: {r: 1, g: 1, b: 1, a: 1}
+    - _Color: {r: 1, g: 0, b: 0, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
-    - sliceCentre: {r: -83, g: 174.737, b: 186, a: 0}
+    - sliceCentre: {r: 0, g: -200, b: 200, a: 0}
     - sliceNormal: {r: 0, g: 0, b: 0, a: 0}
   m_BuildTextureStacks: []
