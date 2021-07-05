@@ -1080,7 +1080,7 @@
     "m_Type": "UnityEditor.ShaderGraph.Vector1MaterialSlot",
     "m_ObjectId": "45f2d0479abc4814a06b5da35de3830a",
     "m_Id": 0,
-    "m_DisplayName": "Fresnel Powoer",
+    "m_DisplayName": "Fresnel Power",
     "m_SlotType": 1,
     "m_Hidden": false,
     "m_ShaderOutputName": "Out",
