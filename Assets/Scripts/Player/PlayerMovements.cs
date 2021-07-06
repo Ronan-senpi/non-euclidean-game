@@ -36,6 +36,7 @@ public class PlayerMovements : PortalTraveller
 
 	private const float JUMP_CD = 0.1f;
 	private float _currentJumpCd;
+	
 
 	private void Start()
 	{
@@ -59,6 +60,8 @@ public class PlayerMovements : PortalTraveller
 
 		Vector3 localGravityDir = fromPortal.InverseTransformDirection(GravityDir);
 		GravityDir = toPortal.TransformDirection(localGravityDir);
+
+		GameManager.Instance.PlayerEntersPortal();
 	}
 
 	// http://wiki.unity3d.com/index.php?title=RigidbodyFPSWalker
