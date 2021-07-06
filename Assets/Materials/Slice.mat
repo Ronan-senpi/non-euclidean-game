@@ -76,6 +76,6 @@ Material:
     m_Colors:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
-    - sliceCentre: {r: 0, g: 0, b: 7.51, a: 0}
+    - sliceCentre: {r: 0.52, g: 8.526, b: -8.38, a: 0}
     - sliceNormal: {r: 0, g: 0, b: 0, a: 0}
   m_BuildTextureStacks: []
