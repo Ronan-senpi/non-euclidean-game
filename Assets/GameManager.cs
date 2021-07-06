@@ -3,8 +3,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Rendering;
-using UnityEngine.Rendering;
 using UnityEngine.Rendering.Universal;
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
+
 public class GameManager : MonoBehaviour
 {
     private static GameManager instance;
@@ -16,7 +18,12 @@ public class GameManager : MonoBehaviour
             return instance;
         }
     }
+    [Header("Menu Parameters")]
+    [SerializeField] private GameObject loadingScreen;
+    [SerializeField] private Image loadingBar;
+    [SerializeField] private Animator launchGameAnimation;
 
+    [Space(10)]
     [SerializeField] private Volume postprocess;
     [SerializeField] private AnimationCurve fadeCurve;
 
@@ -31,7 +38,8 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
-        postprocess.profile.TryGet(out aberration);
+        if(postprocess)
+            postprocess.profile.TryGet(out aberration);
 
     }
 
@@ -47,6 +55,45 @@ public class GameManager : MonoBehaviour
                 activateAberration = false;
             }
         }
+    }
+
+    public void LaunchSceneWithAnimation()
+    {
+        launchGameAnimation.SetTrigger("LaunchGame");
+    }
+
+    public void Loadscene(int index)
+    {
+        StartCoroutine(AsyncLoading(index));
+    }
+
+    private IEnumerator AsyncLoading(int id)
+    {
+        float chrono = 0;
+
+        while (chrono <= 0.25f)
+        {
+            chrono += Time.deltaTime;
+            yield return null;
+        }
+
+
+        loadingScreen.SetActive(true);
+        AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(id);
+        loadingBar.fillAmount = 0f;
+
+        while (!asyncLoad.isDone)
+        {
+            loadingBar.fillAmount = asyncLoad.progress;
+            yield return null;
+        }
+
+        loadingScreen.SetActive(false);
+    }
+
+    public void QuitGame()
+    {
+        Application.Quit();
     }
 
     public void PlayerEntersPortal()
