@@ -57,12 +57,12 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public void LaunchSceneWithAnimation()
+    public void LaunchStartAnimation()
     {
         launchGameAnimation.SetTrigger("LaunchGame");
     }
 
-    public void Loadscene(int index)
+    public void LoadScene(int index)
     {
         StartCoroutine(AsyncLoading(index));
     }
@@ -76,8 +76,8 @@ public class GameManager : MonoBehaviour
             chrono += Time.deltaTime;
             yield return null;
         }
-
-
+        
+        
         loadingScreen.SetActive(true);
         AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(id);
         loadingBar.fillAmount = 0f;
@@ -104,4 +104,5 @@ public class GameManager : MonoBehaviour
             startTime = Time.time;
         }
     }
+
 }
