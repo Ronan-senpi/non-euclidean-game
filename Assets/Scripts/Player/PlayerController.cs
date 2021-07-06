@@ -338,5 +338,6 @@ public class PlayerController : PortalTraveller
         transform.eulerAngles = Vector3.up * smoothYaw;
         characterVelocity = toPortal.TransformVector(fromPortal.InverseTransformVector(characterVelocity));
         Physics.SyncTransforms();
+
     }
 }

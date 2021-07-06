@@ -62,6 +62,14 @@ public class PlayerMovements : PortalTraveller
 		GravityDir = toPortal.TransformDirection(localGravityDir);
 
 		GameManager.Instance.PlayerEntersPortal();
+		if (RdmPortalController.Instance)
+		{
+			Portal p;
+			if (toPortal.TryGetComponent<Portal>(out p))
+			{
+				p.SwitchExit(RdmPortalController.Instance.GetRdmPortal(p.portalLeftRight));
+			}
+		}
 	}
 
 	// http://wiki.unity3d.com/index.php?title=RigidbodyFPSWalker

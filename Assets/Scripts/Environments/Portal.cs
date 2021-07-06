@@ -3,6 +3,9 @@ using UnityEngine;
 
 public class Portal : MonoBehaviour
 {
+
+    public PortalLeftRight portalLeftRight { get; set; }
+
     [Header("Main Settings")]
     [SerializeField]
     private Portal _linkedPortal;

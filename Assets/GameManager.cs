@@ -45,7 +45,7 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
-        if (activateAberration)
+        if (activateAberration && aberration)
         {
             float elapsed = Time.time - startTime;
             float value = intensity * fadeCurve.Evaluate(elapsed / duration);

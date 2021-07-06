@@ -26,20 +26,40 @@ public class RdmPortalController : MonoBehaviour
 
 
     [SerializeField]
-    List<GameObject> portalsContainers;
+    GameObject portalsLeftContainers;
+    [SerializeField]
+    GameObject portalsRightContainers;
 
-    List<GameObject> portals = new List<GameObject>();
+    List<Portal> portalsLeft = new List<Portal>();
+    List<Portal> portalsRight = new List<Portal>();
 
     private void Awake()
     {
-        //Init la liste des portails
-        foreach (GameObject item in portalsContainers)
-            for (int i = 0; i < item.transform.childCount; i++)
-                portals.Add(item.transform.GetChild(i).gameObject);
+        for (int i = 0; i < portalsLeftContainers.transform.childCount; i++)
+        {
+            Portal p;
+            if (portalsLeftContainers.transform.GetChild(i).TryGetComponent(out p))
+            {
+                p.portalLeftRight = PortalLeftRight.Left;
+                portalsLeft.Add(p);
+            }
+        }
+
+        for (int i = 0; i < portalsRightContainers.transform.childCount; i++)
+        {
+            Portal p;
+            if (portalsRightContainers.transform.GetChild(i).TryGetComponent(out p))
+            {
+                p.portalLeftRight = PortalLeftRight.Right;
+                portalsRight.Add(p);
+            }
+        }
     }
 
-    public Portal GetPortal(int index)
+    public Portal GetRdmPortal(PortalLeftRight currentPortal)
     {
+        List<Portal> portals = currentPortal == PortalLeftRight.Left ? portalsLeft : portalsRight;
+        int index = Random.Range(0, portals.Count);
         if (currentPassagesBeforeDestination >= nbPassagesBeforeDestination)
         {
             return destination;
@@ -53,8 +73,5 @@ public class RdmPortalController : MonoBehaviour
         return null;
     }
 
-    public Portal GetRdmPortal()
-    {
-        return this.GetPortal(Random.Range(0, portals.Count));
-    }
+
 }
