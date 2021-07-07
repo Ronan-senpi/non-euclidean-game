@@ -58,7 +58,7 @@ public class RdmPortalController : MonoBehaviour
 
     public Portal GetRdmPortal(PortalLeftRight currentPortal)
     {
-        List<Portal> portals = currentPortal == PortalLeftRight.Left ? portalsLeft : portalsRight;
+        List<Portal> portals = currentPortal == PortalLeftRight.Left ? portalsRight : portalsLeft;
         int index = Random.Range(0, portals.Count);
         if (currentPassagesBeforeDestination >= nbPassagesBeforeDestination)
         {
