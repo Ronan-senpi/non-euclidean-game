@@ -5,9 +5,13 @@ public class PlayerMovements : PortalTraveller
 {
 	[SerializeField]
 	private Rigidbody _rigidbody;
-
+	
 	[SerializeField]
 	private Transform _camera;
+
+	[SerializeField]
+	private AudioSource teleportSound;
+
 
 	[SerializeField]
 	private float _moveSpeed = 5;
@@ -36,7 +40,8 @@ public class PlayerMovements : PortalTraveller
 
 	private const float JUMP_CD = 0.1f;
 	private float _currentJumpCd;
-	
+
+	private bool canPlaySound = true;
 
 	private void Start()
 	{
@@ -61,7 +66,6 @@ public class PlayerMovements : PortalTraveller
 		Vector3 localGravityDir = fromPortal.InverseTransformDirection(GravityDir);
 		GravityDir = toPortal.TransformDirection(localGravityDir);
 
-		GameManager.Instance.PlayerEntersPortal();
 		if (RdmPortalController.Instance)
 		{
 			Portal p;
@@ -70,6 +74,23 @@ public class PlayerMovements : PortalTraveller
 				p.SwitchExit(RdmPortalController.Instance.GetRdmPortal(p.portalLeftRight));
 			}
 		}
+	}
+
+	public override void EnterPortalThreshold()
+	{
+		base.EnterPortalThreshold();
+		GameManager.Instance.PlayerEntersPortal();
+		if (teleportSound && canPlaySound)
+        {
+			teleportSound.Play();
+			canPlaySound = false;
+        }
+	}
+
+	public override void ExitPortalThreshold()
+	{
+		base.ExitPortalThreshold();
+		canPlaySound = true;
 	}
 
 	// http://wiki.unity3d.com/index.php?title=RigidbodyFPSWalker
