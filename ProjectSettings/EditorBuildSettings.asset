@@ -9,6 +9,12 @@ EditorBuildSettings:
     path: Assets/Scenes/MenuManager.unity
     guid: caeeb09f27164604f950181625c2f104
   - enabled: 1
+    path: Assets/Scenes/Gameplay.unity
+    guid: b37639d159f18274e8bf45f1bb564273
+  - enabled: 1
     path: Assets/Scenes/TutorialScene.unity
     guid: faaf36cb7dfedfe47aa6cc1fea3c75aa
+  - enabled: 1
+    path: Assets/Scenes/HugeWallsScene.unity
+    guid: aa74cf70203105047b07319f66a4a418
   m_configObjects: {}
