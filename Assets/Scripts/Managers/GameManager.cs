@@ -1,11 +1,9 @@
 using System;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.Rendering.Universal;
 using UnityEngine.SceneManagement;
-using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
@@ -19,8 +17,6 @@ public class GameManager : MonoBehaviour
         }
     }
     [Header("Menu Parameters")]
-    [SerializeField] private GameObject loadingScreen;
-    [SerializeField] private Image loadingBar;
     [SerializeField] private Animator launchGameAnimation;
 
     [Space(10)]
@@ -38,6 +34,8 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
+        DontDestroyOnLoad(gameObject);
+        postprocess = FindObjectOfType<Volume>();
         if(postprocess)
             postprocess.profile.TryGet(out aberration);
 
@@ -77,18 +75,12 @@ public class GameManager : MonoBehaviour
             yield return null;
         }
         
-        
-        loadingScreen.SetActive(true);
         AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(id);
-        loadingBar.fillAmount = 0f;
 
         while (!asyncLoad.isDone)
         {
-            loadingBar.fillAmount = asyncLoad.progress;
             yield return null;
         }
-
-        loadingScreen.SetActive(false);
     }
 
     public void QuitGame()

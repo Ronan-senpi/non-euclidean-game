@@ -112,7 +112,7 @@ GameObject:
   - component: {fileID: 258318569604828306}
   m_Layer: 8
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -148,6 +148,7 @@ MonoBehaviour:
   _graphicsObject: {fileID: 5209153475379233345}
   _rigidbody: {fileID: 529028779963709910}
   _camera: {fileID: 529028779782864854}
+  teleportSound: {fileID: 0}
   _moveSpeed: 5
   _sprintMultiplier: 2
   _airMultiplier: 0.1

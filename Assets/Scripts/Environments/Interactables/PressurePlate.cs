@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PressurePlate : MonoBehaviour
 {
-    [SerializeField] private Activable linkedObject;
+    [SerializeField] private List<Activable> linkedObjects = new List<Activable>();
 
     private void OnTriggerEnter(Collider other)
     {
@@ -20,8 +20,11 @@ public class PressurePlate : MonoBehaviour
 
     public void PressPlate()
     {
-        if (linkedObject != null)
-            linkedObject.onStateChange?.Invoke();
+        if (linkedObjects != null)
+        {
+            for(int i = 0; i < linkedObjects.Count; i++)
+                linkedObjects[i].onStateChange?.Invoke();
+        }
         else
             Debug.LogError("No object linked to " + name);
     }
