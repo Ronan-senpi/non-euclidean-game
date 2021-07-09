@@ -32,6 +32,13 @@ public class Portal : MonoBehaviour
     [SerializeField]
     private float _nearClipLimit = 0.2f;
 
+    [Header("Scales Settings")]
+    [SerializeField]
+    bool IsScaler = false;
+    [SerializeField]
+    float scaleValue = 1;
+
+
     // Private variables
     private RenderTexture _viewTexture;
     private Camera _portalCam;
@@ -402,7 +409,10 @@ public class Portal : MonoBehaviour
         var traveller = other.GetComponent<PortalTraveller>();
         if (traveller && _trackedTravellers.Contains(traveller))
         {
+            if (IsScaler)
+                traveller.setScale(scaleValue);
             traveller.ExitPortalThreshold();
+
             _trackedTravellers.Remove(traveller);
         }
     }
