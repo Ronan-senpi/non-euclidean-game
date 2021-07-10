@@ -79,7 +79,7 @@ public class PlayerMovements : PortalTraveller
 	public override void EnterPortalThreshold()
 	{
 		base.EnterPortalThreshold();
-		GameManager.Instance.PlayerEntersPortal();
+		GameManager.Instance.ActivateAberration();
 		if (teleportSound && canPlaySound)
         {
 			teleportSound.Play();

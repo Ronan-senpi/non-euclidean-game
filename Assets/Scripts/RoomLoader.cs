@@ -2,7 +2,7 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class RoomLoader : Activable
+public class RoomLoader : MonoBehaviour
 {
     private bool isLoaded;
     private bool shouldLoad;
@@ -57,7 +57,7 @@ public class RoomLoader : Activable
 
     private IEnumerator AsyncUnLoadingAndCheckPortals()
     {
-        Debug.Log(gameObject.name);
+        Debug.Log(gameObject.name); 
         AsyncOperation asyncLoad = SceneManager.UnloadSceneAsync(gameObject.name);
         Debug.Log(asyncLoad);
         while (!asyncLoad.isDone)
@@ -93,12 +93,6 @@ public class RoomLoader : Activable
         {
             UnLoadScene();
         }
-    }
-
-    protected override void ActionOnUse()
-    {
-        LoadScene();
-        shouldLoad = false;
     }
 }
 

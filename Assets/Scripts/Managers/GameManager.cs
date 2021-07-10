@@ -16,28 +16,37 @@ public class GameManager : MonoBehaviour
             return instance;
         }
     }
+
     [Header("Menu Parameters")]
     [SerializeField] private Animator launchGameAnimation;
 
     [Space(10)]
+    [Header("Post Process Parameters")]
     [SerializeField] private Volume postprocess;
-    [SerializeField] private AnimationCurve fadeCurve;
+    [SerializeField] private AnimationCurve aberrationFadeCurve;
+    [SerializeField] private float aberrationDuration;
+    [SerializeField] private float aberrationIntensity;
 
-    [SerializeField] private float duration;
-    [SerializeField] private float intensity;
+    [SerializeField] private AnimationCurve lensFadeCurve;
+    [SerializeField] private float lensDuration;
+    [SerializeField] private float lensIntensity;
 
     private float currentValue;
     private float startTime;
 
     private bool activateAberration;
+    private bool activateLens;
     private ChromaticAberration aberration;
+    private LensDistortion lens;
 
     private void Awake()
     {
-        DontDestroyOnLoad(gameObject);
         postprocess = FindObjectOfType<Volume>();
-        if(postprocess)
+        if (postprocess)
+        {
             postprocess.profile.TryGet(out aberration);
+            postprocess.profile.TryGet(out lens);
+        }
 
     }
 
@@ -46,11 +55,21 @@ public class GameManager : MonoBehaviour
         if (activateAberration && aberration)
         {
             float elapsed = Time.time - startTime;
-            float value = intensity * fadeCurve.Evaluate(elapsed / duration);
+            float value = aberrationIntensity * aberrationFadeCurve.Evaluate(elapsed / aberrationDuration);
             aberration.intensity.Override(value);
-            if (elapsed > duration)
+            if (elapsed > aberrationDuration)
             {
                 activateAberration = false;
+            }
+        }
+
+        if(activateLens && lens) {
+            float elapsed = Time.time - startTime;
+            float value = lensIntensity * lensFadeCurve.Evaluate(elapsed / lensDuration);
+            lens.intensity.Override(value);
+            if (elapsed > lensDuration)
+            {
+                activateLens = false;
             }
         }
     }
@@ -88,11 +107,20 @@ public class GameManager : MonoBehaviour
         Application.Quit();
     }
 
-    public void PlayerEntersPortal()
+    public void ActivateAberration()
     {
         if (!activateAberration)
         {
             activateAberration = true;
+            startTime = Time.time;
+        }
+    }
+
+    public void ActivateLens()
+    {
+        if (!activateLens)
+        {
+            activateLens = true;
             startTime = Time.time;
         }
     }

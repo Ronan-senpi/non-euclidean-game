@@ -97,8 +97,10 @@ LightmapSettings:
     m_ExportTrainingData: 0
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
-  m_LightingDataAsset: {fileID: 0}
-  m_LightingSettings: {fileID: 0}
+  m_LightingDataAsset: {fileID: 112000000, guid: 087d9fce9035ab842ada2f2eeb5da55a,
+    type: 2}
+  m_LightingSettings: {fileID: 4890085278179872738, guid: 1b07518a39809be4893b270a518762b9,
+    type: 2}
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -231,7 +233,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 1
   m_VolumeTrigger: {fileID: 0}
-  m_RenderPostProcessing: 0
+  m_RenderPostProcessing: 1
   m_Antialiasing: 0
   m_AntialiasingQuality: 2
   m_StopNaN: 0
@@ -1150,7 +1152,7 @@ GameObject:
   - component: {fileID: 1605008029}
   - component: {fileID: 1605008028}
   m_Layer: 5
-  m_Name: Button
+  m_Name: PlayButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1222,6 +1224,18 @@ MonoBehaviour:
       - m_Target: {fileID: 1907350126}
         m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
         m_MethodName: LaunchStartAnimation
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1907350126}
+        m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
+        m_MethodName: ActivateLens
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1579,6 +1593,21 @@ PrefabInstance:
       objectReference: {fileID: 2135540149}
     - target: {fileID: 2906300119035583116, guid: 7cf7015ab3a0c6b4b9e251f43ff19872,
         type: 3}
+      propertyPath: postprocess
+      value: 
+      objectReference: {fileID: 1487924957}
+    - target: {fileID: 2906300119035583116, guid: 7cf7015ab3a0c6b4b9e251f43ff19872,
+        type: 3}
+      propertyPath: lensDuration
+      value: 2.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 2906300119035583116, guid: 7cf7015ab3a0c6b4b9e251f43ff19872,
+        type: 3}
+      propertyPath: lensIntensity
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2906300119035583116, guid: 7cf7015ab3a0c6b4b9e251f43ff19872,
+        type: 3}
       propertyPath: loadingScreen
       value: 
       objectReference: {fileID: 1645792748}
@@ -1587,6 +1616,101 @@ PrefabInstance:
       propertyPath: launchGameAnimation
       value: 
       objectReference: {fileID: 46316069}
+    - target: {fileID: 2906300119035583116, guid: 7cf7015ab3a0c6b4b9e251f43ff19872,
+        type: 3}
+      propertyPath: lensFadeCurve.m_Curve.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 2906300119035583116, guid: 7cf7015ab3a0c6b4b9e251f43ff19872,
+        type: 3}
+      propertyPath: lensFadeCurve.m_Curve.Array.data[1].time
+      value: 0.099999994
+      objectReference: {fileID: 0}
+    - target: {fileID: 2906300119035583116, guid: 7cf7015ab3a0c6b4b9e251f43ff19872,
+        type: 3}
+      propertyPath: lensFadeCurve.m_Curve.Array.data[2].time
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2906300119035583116, guid: 7cf7015ab3a0c6b4b9e251f43ff19872,
+        type: 3}
+      propertyPath: lensFadeCurve.m_Curve.Array.data[0].value
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2906300119035583116, guid: 7cf7015ab3a0c6b4b9e251f43ff19872,
+        type: 3}
+      propertyPath: lensFadeCurve.m_Curve.Array.data[1].value
+      value: 0.9999999
+      objectReference: {fileID: 0}
+    - target: {fileID: 2906300119035583116, guid: 7cf7015ab3a0c6b4b9e251f43ff19872,
+        type: 3}
+      propertyPath: lensFadeCurve.m_Curve.Array.data[2].value
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2906300119035583116, guid: 7cf7015ab3a0c6b4b9e251f43ff19872,
+        type: 3}
+      propertyPath: lensFadeCurve.m_Curve.Array.data[0].inSlope
+      value: 9.999999
+      objectReference: {fileID: 0}
+    - target: {fileID: 2906300119035583116, guid: 7cf7015ab3a0c6b4b9e251f43ff19872,
+        type: 3}
+      propertyPath: lensFadeCurve.m_Curve.Array.data[1].inSlope
+      value: 0.055275675
+      objectReference: {fileID: 0}
+    - target: {fileID: 2906300119035583116, guid: 7cf7015ab3a0c6b4b9e251f43ff19872,
+        type: 3}
+      propertyPath: lensFadeCurve.m_Curve.Array.data[2].inSlope
+      value: -2.6189675
+      objectReference: {fileID: 0}
+    - target: {fileID: 2906300119035583116, guid: 7cf7015ab3a0c6b4b9e251f43ff19872,
+        type: 3}
+      propertyPath: lensFadeCurve.m_Curve.Array.data[0].outSlope
+      value: 9.999999
+      objectReference: {fileID: 0}
+    - target: {fileID: 2906300119035583116, guid: 7cf7015ab3a0c6b4b9e251f43ff19872,
+        type: 3}
+      propertyPath: lensFadeCurve.m_Curve.Array.data[1].inWeight
+      value: 0.33333334
+      objectReference: {fileID: 0}
+    - target: {fileID: 2906300119035583116, guid: 7cf7015ab3a0c6b4b9e251f43ff19872,
+        type: 3}
+      propertyPath: lensFadeCurve.m_Curve.Array.data[1].outSlope
+      value: 0.055275675
+      objectReference: {fileID: 0}
+    - target: {fileID: 2906300119035583116, guid: 7cf7015ab3a0c6b4b9e251f43ff19872,
+        type: 3}
+      propertyPath: lensFadeCurve.m_Curve.Array.data[2].inWeight
+      value: 0.040821567
+      objectReference: {fileID: 0}
+    - target: {fileID: 2906300119035583116, guid: 7cf7015ab3a0c6b4b9e251f43ff19872,
+        type: 3}
+      propertyPath: lensFadeCurve.m_Curve.Array.data[2].outSlope
+      value: -2.6189675
+      objectReference: {fileID: 0}
+    - target: {fileID: 2906300119035583116, guid: 7cf7015ab3a0c6b4b9e251f43ff19872,
+        type: 3}
+      propertyPath: lensFadeCurve.m_Curve.Array.data[0].outWeight
+      value: 0.33333334
+      objectReference: {fileID: 0}
+    - target: {fileID: 2906300119035583116, guid: 7cf7015ab3a0c6b4b9e251f43ff19872,
+        type: 3}
+      propertyPath: lensFadeCurve.m_Curve.Array.data[1].outWeight
+      value: 0.08916955
+      objectReference: {fileID: 0}
+    - target: {fileID: 2906300119035583116, guid: 7cf7015ab3a0c6b4b9e251f43ff19872,
+        type: 3}
+      propertyPath: lensFadeCurve.m_Curve.Array.data[0].tangentMode
+      value: 34
+      objectReference: {fileID: 0}
+    - target: {fileID: 2906300119035583116, guid: 7cf7015ab3a0c6b4b9e251f43ff19872,
+        type: 3}
+      propertyPath: lensFadeCurve.m_Curve.Array.data[1].tangentMode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2906300119035583116, guid: 7cf7015ab3a0c6b4b9e251f43ff19872,
+        type: 3}
+      propertyPath: lensFadeCurve.m_Curve.Array.data[2].tangentMode
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2906300119035583117, guid: 7cf7015ab3a0c6b4b9e251f43ff19872,
         type: 3}
       propertyPath: m_RootOrder

@@ -12,7 +12,7 @@ public class MainCamera : MonoBehaviour
             return instance;
         }
     }
-    Portal[] portals;
+    private Portal[] portals;
 
     void Awake()
     {
@@ -29,7 +29,11 @@ public class MainCamera : MonoBehaviour
         for (int i = 0; i < portals.Length; i++)
         {
             if (portals[i].enabled)
+            {
+                Debug.Log(portals[i].gameObject.name);
                 portals[i].Render();
+
+            }
         }
 
         for (int i = 0; i < portals.Length; i++)
@@ -40,6 +44,7 @@ public class MainCamera : MonoBehaviour
 
     public void SearchAllPortals()
     {
+        Debug.Log("RELOAD PORTALS");
         portals = FindObjectsOfType<Portal>();
     }
 
