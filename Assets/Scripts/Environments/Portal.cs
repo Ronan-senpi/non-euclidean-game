@@ -393,7 +393,6 @@ public class Portal : MonoBehaviour
             if (isScaler)
             {
                 traveller.setScale(scaleValue);
-                Debug.Log("salope");
             }
             traveller.EnterPortalThreshold();
             traveller.PreviousOffsetFromPortal = traveller.transform.position - transform.position;
