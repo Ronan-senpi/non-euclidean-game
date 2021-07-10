@@ -30,7 +30,6 @@ public class MainCamera : MonoBehaviour
         {
             if (portals[i].enabled)
             {
-                Debug.Log(portals[i].gameObject.name);
                 portals[i].Render();
 
             }

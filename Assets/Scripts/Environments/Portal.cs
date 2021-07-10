@@ -34,7 +34,7 @@ public class Portal : MonoBehaviour
 
     [Header("Scales Settings")]
     [SerializeField]
-    bool IsScaler = false;
+    bool isScaler = false;
     [SerializeField]
     float scaleValue = 1;
 
@@ -389,6 +389,12 @@ public class Portal : MonoBehaviour
     {
         if (!_trackedTravellers.Contains(traveller))
         {
+
+            if (isScaler)
+            {
+                traveller.setScale(scaleValue);
+                Debug.Log("salope");
+            }
             traveller.EnterPortalThreshold();
             traveller.PreviousOffsetFromPortal = traveller.transform.position - transform.position;
             _trackedTravellers.Add(traveller);
@@ -409,7 +415,7 @@ public class Portal : MonoBehaviour
         var traveller = other.GetComponent<PortalTraveller>();
         if (traveller && _trackedTravellers.Contains(traveller))
         {
-            if (IsScaler)
+            if (isScaler)
                 traveller.setScale(scaleValue);
             traveller.ExitPortalThreshold();
 
