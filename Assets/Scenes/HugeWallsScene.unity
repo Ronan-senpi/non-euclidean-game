@@ -99,7 +99,7 @@ LightmapSettings:
     m_LightProbeSampleCountMultiplier: 4
   m_LightingDataAsset: {fileID: 112000000, guid: cb1fa6052c21fb34aa4e96b1e6cb30eb,
     type: 2}
-  m_LightingSettings: {fileID: 4890085278179872738, guid: f072e597be609a04a93d2447fe914ecd,
+  m_LightingSettings: {fileID: 4890085278179872738, guid: 1b07518a39809be4893b270a518762b9,
     type: 2}
 --- !u!196 &4
 NavMeshSettings:
@@ -4263,14 +4263,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   launchGameAnimation: {fileID: 0}
   postprocess: {fileID: 0}
-  fadeCurve:
+  aberrationFadeCurve:
     serializedVersion: 2
     m_Curve: []
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  duration: 0
-  intensity: 0
+  aberrationDuration: 0
+  aberrationIntensity: 0
+  lensFadeCurve:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  lensDuration: 0
+  lensIntensity: 0
 --- !u!4 &617068301
 Transform:
   m_ObjectHideFlags: 0
