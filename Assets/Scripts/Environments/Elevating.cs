@@ -7,6 +7,9 @@ public class Elevating : Activable
     [SerializeField] private float elevatingSpeed;
     [SerializeField] private GameObject elevatingPosition;
     [SerializeField] private Transform elevatingTransform;
+    [SerializeField] private int numberOfActivationNeeded = 1;
+    private int currentActivation = 0;
+
     private Vector3 startPosition;
 
     protected override void Awake()
@@ -15,9 +18,17 @@ public class Elevating : Activable
         startPosition = transform.position;
     }
 
-    protected override void ActionOnUse()
+    protected override void ActionOnUse(bool stateAction)
     {
-        isActive = !isActive;
+        if (stateAction)
+            currentActivation++;
+        else
+            currentActivation--;
+
+        if (currentActivation >= numberOfActivationNeeded)
+            isActive = true;
+        else
+            isActive = false;
     }
 
     private void Update()

@@ -21,7 +21,7 @@ public class Door : Activable
         rightWingStartPosition = rightWing.position;
     }
 
-    protected override void ActionOnUse()
+    protected override void ActionOnUse(bool stateAction = false)
     {
         isActive = !isActive;
     }

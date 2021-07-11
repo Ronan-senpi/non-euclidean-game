@@ -12,6 +12,6 @@ public class InteractableButton : Interactable
 
     private void ActionOnUse()
     {
-        linkedObject.onStateChange.Invoke();
+        linkedObject.onStateChange.Invoke(true);
     }
 }

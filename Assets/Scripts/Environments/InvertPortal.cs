@@ -13,7 +13,7 @@ public class InvertPortal : Activable
         base.Awake();
     }
 
-    protected override void ActionOnUse()
+    protected override void ActionOnUse(bool stateAction = false)
     {
 
         if (portal1._LinkedPortal == portal2)

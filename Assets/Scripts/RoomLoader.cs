@@ -57,9 +57,7 @@ public class RoomLoader : MonoBehaviour
 
     private IEnumerator AsyncUnLoadingAndCheckPortals()
     {
-        Debug.Log(gameObject.name); 
         AsyncOperation asyncLoad = SceneManager.UnloadSceneAsync(gameObject.name);
-        Debug.Log(asyncLoad);
         while (!asyncLoad.isDone)
         {
             yield return null;

@@ -9,21 +9,21 @@ public class PressurePlate : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.tag == "Interactable" || other.gameObject.tag == "Player")
-            PressPlate();
+            PressPlate(true);
     }
 
     private void OnTriggerExit(Collider other)
     {
         if (other.gameObject.tag == "Interactable" || other.gameObject.tag == "Player")
-            PressPlate();
+            PressPlate(false);
     }
 
-    public void PressPlate()
+    public void PressPlate(bool action)
     {
         if (linkedObjects != null)
         {
             for(int i = 0; i < linkedObjects.Count; i++)
-                linkedObjects[i].onStateChange?.Invoke();
+                linkedObjects[i].onStateChange?.Invoke(action);
         }
         else
             Debug.LogError("No object linked to " + name);

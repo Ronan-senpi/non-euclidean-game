@@ -30,9 +30,7 @@ public class MainCamera : MonoBehaviour
         {
             if (portals[i].enabled)
             {
-                Debug.Log(portals[i].gameObject.name);
                 portals[i].Render();
-
             }
         }
 
@@ -44,7 +42,6 @@ public class MainCamera : MonoBehaviour
 
     public void SearchAllPortals()
     {
-        Debug.Log("RELOAD PORTALS");
         portals = FindObjectsOfType<Portal>();
     }
 

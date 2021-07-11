@@ -35,7 +35,6 @@ public class RdmPortalController : MonoBehaviour
 
     private void Start()
     {
-        Debug.Log("Hello Awake Rdm");
         for (int i = 0; i < portalsLeftContainers.transform.childCount; i++)
         {
             Portal p;
@@ -59,7 +58,6 @@ public class RdmPortalController : MonoBehaviour
 
     public Portal GetRdmPortal(PortalLeftRight currentPortal)
     {
-        Debug.Log("Hello Get Rdm");
         List<Portal> portals = currentPortal == PortalLeftRight.Left ? portalsRight : portalsLeft;
         int index = Random.Range(0, portals.Count);
         if (currentPassagesBeforeDestination >= nbPassagesBeforeDestination)
@@ -69,7 +67,6 @@ public class RdmPortalController : MonoBehaviour
         if (portals.Count > index)
         {
             ++currentPassagesBeforeDestination;
-            Debug.Log("currentPassagesBeforeDestination" + currentPassagesBeforeDestination);
             return portals[index].GetComponent<Portal>();
         }
         return null;

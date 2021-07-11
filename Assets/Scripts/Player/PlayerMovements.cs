@@ -62,7 +62,6 @@ public class PlayerMovements : PortalTraveller
 		
 		Quaternion velocityRot = Quaternion.FromToRotation(fromPortal.forward, toPortal.forward);
 		_rigidbody.velocity = velocityRot * _rigidbody.velocity;
-
 		Vector3 localGravityDir = fromPortal.InverseTransformDirection(GravityDir);
 		GravityDir = toPortal.TransformDirection(localGravityDir);
 
@@ -79,7 +78,9 @@ public class PlayerMovements : PortalTraveller
 	public override void EnterPortalThreshold()
 	{
 		base.EnterPortalThreshold();
-		GameManager.Instance.ActivateAberration();
+		if(GameManager.Instance != null)
+			GameManager.Instance.ActivateAberration();
+
 		if (teleportSound && canPlaySound)
         {
 			teleportSound.Play();

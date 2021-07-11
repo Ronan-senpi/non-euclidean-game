@@ -5,7 +5,7 @@ using UnityEngine.Events;
 
 public class Activable : MonoBehaviour
 {
-    [HideInInspector] public UnityEvent onStateChange = new UnityEvent();
+    [HideInInspector] public UnityEvent<bool> onStateChange = new UnityEvent<bool>();
     protected bool isActive;
 
     protected virtual void Awake()
@@ -13,5 +13,5 @@ public class Activable : MonoBehaviour
         onStateChange.AddListener(ActionOnUse);
     }
 
-    protected virtual void ActionOnUse() { }
+    protected virtual void ActionOnUse(bool action = false) { }
 }

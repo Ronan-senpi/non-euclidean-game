@@ -6,7 +6,7 @@ public class ActivableOnTrigger : Activable
 {
     [SerializeField] private GameObject go;
 
-    protected override void ActionOnUse()
+    protected override void ActionOnUse(bool stateAction = false)
     {
         go.SetActive(true);
     }

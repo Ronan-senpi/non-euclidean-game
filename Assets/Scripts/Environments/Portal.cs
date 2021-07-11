@@ -37,8 +37,10 @@ public class Portal : MonoBehaviour
     private Camera _portalCam;
     private Camera _playerCam;
     private Material _firstRecursionMat;
-    private List<PortalTraveller> _trackedTravellers;
+    public List<PortalTraveller> _trackedTravellers;
     private MeshFilter _screenMeshFilter;
+
+    [SerializeField] private bool changePlayerGravity = true;
 
     // Shader uniforms
     private static readonly int DisplayMask = Shader.PropertyToID("displayMask");
@@ -92,7 +94,6 @@ public class Portal : MonoBehaviour
                 var rotOld = travellerT.rotation;
 
                 Matrix4x4 m = _linkedPortal.transform.localToWorldMatrix * transform.worldToLocalMatrix * travellerT.localToWorldMatrix;
-
                 traveller.Teleport(transform, _linkedPortal.transform, m.GetColumn(3), m.rotation);
                 if (traveller.HasGraphicsObject)
                 {

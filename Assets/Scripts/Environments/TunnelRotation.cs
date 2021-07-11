@@ -19,10 +19,8 @@ public class TunnelRotation : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Debug.Log("TAMERE");
         float elapsed = Time.time - startTime;
         float value = intensity * tunnelAnimationCurve.Evaluate(elapsed / duration);
-        Debug.Log(value);
         for (int i = 0; i < transform.childCount; i++)
         {
             Transform childTrans = transform.GetChild(i);
