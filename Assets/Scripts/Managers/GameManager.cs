@@ -72,6 +72,10 @@ public class GameManager : MonoBehaviour
                 activateLens = false;
             }
         }
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            QuitGame();
+        }
     }
 
     public void LaunchStartAnimation()
