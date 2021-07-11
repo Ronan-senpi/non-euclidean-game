@@ -1,0 +1,11 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class Genericlauncher : Activable
+{
+    protected override void ActionOnUse()
+    {
+        Debug.LogWarning("FUCK U KLEMENT");
+    }
+}

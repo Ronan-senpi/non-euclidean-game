@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class PortalTraveller : MonoBehaviour
@@ -107,4 +108,9 @@ public class PortalTraveller : MonoBehaviour
 
 		return matList.ToArray();
 	}
+
+    internal void setScale(float scaleValue)
+    {
+		transform.localScale = new Vector3(scaleValue, scaleValue, scaleValue);
+    }
 }
