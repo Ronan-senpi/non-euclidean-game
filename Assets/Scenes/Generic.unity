@@ -184,11 +184,12 @@ MonoBehaviour:
   m_text: "Euclide\r\n\r\nDeveloper\r\nMaxime DURIEZ\r\nCl\xE9ment CLERC\r\nRonan
     DHERSIGNERIE\r\n\r\nGameplay programmer\r\nMaxime DURIEZ\r\nCl\xE9ment CLERC\r\n\r\nGame
     designer\r\nCl\xE9ment CLERC\r\nRonan DHERSIGNERIE\r\n\r\nLevel designer\r\nCl\xE9ment
-    CLERC\r\nRonan DHERSIGNERIE\r\n\r\nBig thank to :\r\nAntoine PAVY\r\n3DJV classmate\r\n\n\n\nSpace
-    bar to back main menu\n"
+    CLERC\r\nRonan DHERSIGNERIE\r\n\r\nBig thanks to :\r\nAntoine PAVY\r\n3DJV classmate\r\n\n\n\nSpace
+    bar to go back to main menu\nEscape to leave game\n"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: c8c8975f2ecc4554bb345b85f94b549e, type: 2}
+  m_sharedMaterial: {fileID: 2994211188524479195, guid: c8c8975f2ecc4554bb345b85f94b549e,
+    type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []

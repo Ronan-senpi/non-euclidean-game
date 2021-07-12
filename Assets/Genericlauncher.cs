@@ -4,8 +4,4 @@ using UnityEngine;
 
 public class Genericlauncher : Activable
 {
-    protected override void ActionOnUse()
-    {
-        Debug.LogWarning("FUCK U KLEMENT");
-    }
 }

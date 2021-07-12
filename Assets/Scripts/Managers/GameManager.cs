@@ -17,8 +17,9 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    [Header("Menu Parameters")]
+    [Header("Animations Parameters")]
     [SerializeField] private Animator launchGameAnimation;
+    [SerializeField] private Animator fadeInAnimation;
 
     [Space(10)]
     [Header("Post Process Parameters")]
@@ -127,6 +128,11 @@ public class GameManager : MonoBehaviour
             activateLens = true;
             startTime = Time.time;
         }
+    }
+
+    public void FadeIn()
+    {
+        fadeInAnimation.SetTrigger("FadeIn");
     }
 
 }

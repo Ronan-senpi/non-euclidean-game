@@ -34,9 +34,9 @@ public class Portal : MonoBehaviour
 
     [Header("Scales Settings")]
     [SerializeField]
-    bool isScaler = false;
+    private bool isScaler = false;
     [SerializeField]
-    float scaleValue = 1;
+    private float scaleValue = 1;
 
 
     // Private variables

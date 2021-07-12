@@ -18,6 +18,9 @@ EditorBuildSettings:
     path: Assets/Scenes/HugeWallsScene.unity
     guid: aa74cf70203105047b07319f66a4a418
   - enabled: 1
+    path: Assets/Scenes/TheAscentScene.unity
+    guid: a87ceb9661a41d54baa80d1ebadebe32
+  - enabled: 1
     path: Assets/Scenes/FinalScenes/FinalScene.unity
     guid: 0d7e57e38560d1a46955143f89261d79
   - enabled: 1
