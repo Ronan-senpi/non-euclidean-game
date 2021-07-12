@@ -67,6 +67,8 @@ Ronan Dhersignerie - [Web Site](http://ronan-dhersignerie.fr/)
 
 Aedrinios - [Github](https://github.com/Aedrinios)
 
+Cyphall - [Github](https://github.com/Cyphall)
+
 Project Link: [https://github.com/Ronan-senpi/non-euclidean-game](https://github.com/Ronan-senpi/non-euclidean-game)
 
 
